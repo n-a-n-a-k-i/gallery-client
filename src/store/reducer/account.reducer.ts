@@ -6,7 +6,7 @@ const initialState: AccountState = {
     isLoading: false
 }
 
-export const AccountReducer = (state = initialState, action: AccountAction): AccountState => {
+export const accountReducer = (state = initialState, action: AccountAction): AccountState => {
     switch (action.type) {
         case AccountActionType.SET_USER:
             return {...state, user: action.payload}
