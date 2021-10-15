@@ -1,5 +1,10 @@
+interface User {
+    id: number
+    name: string
+}
+
 export interface UserState {
-    items: any[]
+    items: User[]
     loading: boolean
     error: null | string
 }
@@ -16,7 +21,7 @@ interface FetchUsersAction {
 
 interface FetchUsersSuccessAction {
     type: UserActionType.FETCH_USERS_SUCCESS
-    payload: any[]
+    payload: User[]
 }
 
 interface FetchUsersErrorAction {
