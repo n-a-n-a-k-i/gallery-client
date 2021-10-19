@@ -1,16 +1,22 @@
-import api from "../http";
 import {AxiosResponse} from 'axios'
-import {AccountSignInResponse} from "../interface/account.sign.in.response.interface";
-import {AccountSignInRequest} from "../interface/account.sign.in.request.interface";
+import {AccountRequestSignIn, AccountResponseRefresh, AccountResponseSignIn} from "../type/account.type";
+import {accountApi} from "../api/account.api";
 
 export default class AccountService {
 
-    static async signIn(data: AccountSignInRequest): Promise<AxiosResponse<AccountSignInResponse>> {
-        return api.post<AccountSignInRequest, AxiosResponse<AccountSignInResponse>>('/sign-in', data)
+    static async signIn(username: string, password: string) {
+        return accountApi.post<AccountRequestSignIn, AxiosResponse<AccountResponseSignIn>>('/account/sign-in', {
+            username,
+            password
+        })
     }
 
-    static async signOut(): Promise<AxiosResponse<void>> {
-        return api.get<void, AxiosResponse<void>>('/sign-out')
+    static async refresh() {
+        return accountApi.get<AccountResponseRefresh>('/account/refresh')
+    }
+
+    static async signOut() {
+        return accountApi.get('/account/sign-out' )
     }
 
 }
