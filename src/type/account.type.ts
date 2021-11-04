@@ -5,8 +5,9 @@ interface Payload {
 
 export interface AccountState {
     user: Payload | null
+    isAuthorized: boolean
+    isLoading: boolean
     error: string | null
-    loading: boolean
 }
 
 export enum AccountActionType {

@@ -2,8 +2,9 @@ import {AccountAction, AccountActionType, AccountState} from "../../type/account
 
 const initialState: AccountState = {
     user: null,
-    error: null,
-    loading: false
+    isAuthorized: false,
+    isLoading: true,
+    error: null
 }
 
 export const accountReducer = (state = initialState, action: AccountAction): AccountState => {
@@ -13,59 +14,62 @@ export const accountReducer = (state = initialState, action: AccountAction): Acc
             return {
                 ...state,
                 user: null,
-                error: null,
-                loading: true
+                isAuthorized: false,
+                isLoading: true,
+                error: null
             }
         case AccountActionType.SIGN_IN_SUCCESS:
             return {
                 ...state,
                 user: action.payload,
-                loading: false
+                isAuthorized: true,
+                isLoading: false
             }
         case AccountActionType.SIGN_IN_ERROR:
             return {
                 ...state,
-                error: action.payload,
-                loading: false
+                isLoading: false,
+                error: action.payload
             }
 
         case AccountActionType.REFRESH:
             return {
                 ...state,
-                user: null,
-                error: null,
-                loading: true
+                isLoading: true
             }
         case AccountActionType.REFRESH_SUCCESS:
             return {
                 ...state,
                 user: action.payload,
-                loading: false
+                isAuthorized: true,
+                isLoading: false
             }
         case AccountActionType.REFRESH_ERROR:
             return {
                 ...state,
-                error: action.payload,
-                loading: false
+                user: null,
+                isAuthorized: false,
+                isLoading: false,
+                error: action.payload
             }
 
         case AccountActionType.SIGN_OUT:
             return {
                 ...state,
-                error: null,
-                loading: true
+                isLoading: true
             }
         case AccountActionType.SIGN_OUT_SUCCESS:
             return {
                 ...state,
                 user: null,
-                loading: false
+                isAuthorized: false,
+                isLoading: false
             }
         case AccountActionType.SIGN_OUT_ERROR:
             return {
                 ...state,
-                error: action.payload,
-                loading: false
+                isLoading: false,
+                error: action.payload
             }
 
         default:
