@@ -1,13 +1,26 @@
 import React, {FC, useState} from 'react';
-import {Avatar, Box, Button, Container, TextField, Typography} from "@mui/material";
+import {
+    Avatar,
+    Box,
+    Button,
+    Container,
+    FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput,
+    TextField,
+    Typography
+} from "@mui/material";
 import {useAction} from "../../hook/useAction";
-import {Login} from "@mui/icons-material";
+import {Login, Visibility, VisibilityOff} from "@mui/icons-material";
 
 const SignIn: FC = () => {
 
     const {signIn} = useAction()
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const [passwordVisible, setPasswordVisible] = useState<boolean>(false)
 
     return (
         <Container maxWidth='xs'>
@@ -28,16 +41,28 @@ const SignIn: FC = () => {
                         fullWidth
                         autoFocus
                     />
-                    <TextField
-                        label='Пароль'
-                        value={password}
-                        onChange={event => setPassword(event.target.value)}
-                        autoComplete='current-password'
-                        margin='normal'
-                        required
-                        fullWidth
-                        type='password'
-                    />
+                    <FormControl variant='outlined' margin='normal' fullWidth>
+                        <InputLabel required>Пароль</InputLabel>
+                        <OutlinedInput
+                            label='Пароль'
+                            value={password}
+                            onChange={event => setPassword(event.target.value)}
+                            autoComplete='current-password'
+                            type={passwordVisible ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position='end'>
+                                    <IconButton
+                                        aria-label='Переключить отображение пароля'
+                                        onClick={() => setPasswordVisible(!passwordVisible)}
+                                        onMouseDown={event => event.preventDefault()}
+                                        edge='end'
+                                    >
+                                        {passwordVisible ? <VisibilityOff/> : <Visibility/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
                     <Button
                         type='submit'
                         variant='contained'
