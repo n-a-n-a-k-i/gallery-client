@@ -1,10 +1,12 @@
 import React, {FC} from 'react';
+import {Box} from "@mui/material";
+import MainMenu from "./MainMenu";
 
 const Gallery: FC = () => {
     return (
-        <div>
-            Галерея
-        </div>
+        <Box>
+            <MainMenu/>
+        </Box>
     )
 }
 

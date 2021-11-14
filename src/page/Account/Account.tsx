@@ -3,7 +3,7 @@ import {Avatar, Box, Button, Container, Typography} from "@mui/material";
 import {Logout} from "@mui/icons-material";
 import {useAction} from "../../hook/useAction";
 
-const SignOut: FC = () => {
+const Account: FC = () => {
 
     const {signOut} = useAction()
 
@@ -13,20 +13,15 @@ const SignOut: FC = () => {
                 <Avatar sx={{m: 1}}>
                     <Logout/>
                 </Avatar>
-                <Typography variant='h5'>Gallery</Typography>
-                <Typography>Выход из системы</Typography>
-                <Button
-                    onClick={() => signOut()}
-                    variant='contained'
-                    fullWidth
-                    sx={{mt: 3, mb: 2}}
-                >
-                    Выйти
-                </Button>
+                <Typography variant='h5'>Аккаунт</Typography>
+                <Typography>Управление учётной записью</Typography>
+                <Box sx={{mt: 1}}>
+                    <Button variant='contained' sx={{mt: 3, mb: 2}} onClick={() => signOut()}>Выйти</Button>
+                </Box>
             </Box>
         </Container>
     )
 
 }
 
-export default SignOut
+export default Account

@@ -6,8 +6,7 @@ import {RouteType} from "./type/route.type";
 import {CircularProgress, Grid} from "@mui/material";
 import SignIn from "./page/SignIn";
 import Gallery from "./page/Gallery";
-import Menu from "./page/Menu";
-import SignOut from "./page/SignOut";
+import Account from "./page/Account";
 
 const App: FC = () => {
 
@@ -55,9 +54,8 @@ const App: FC = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path={RouteType.GALLERY} component={Gallery}/>
-                <Route exact path={RouteType.MENU} component={Menu}/>
-                <Route exact path={RouteType.SIGN_OUT} component={SignOut}/>
-                <Redirect to={RouteType.SIGN_OUT}/>
+                <Route exact path={RouteType.ACCOUNT} component={Account}/>
+                <Redirect to={RouteType.GALLERY}/>
             </Switch>
         </BrowserRouter>
     )
