@@ -1,12 +1,12 @@
 import React, {MouseEvent, useState} from 'react';
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {Box, Fab, ListItemIcon, ListItemText, Menu, MenuItem} from "@mui/material";
 import {Check, MoreVert, Person, Search, ViewComfy} from "@mui/icons-material";
 import {RouteType} from "../../type/route.type";
 
 const MainMenu = () => {
 
-    const history = useHistory()
+    const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
 
@@ -24,7 +24,7 @@ const MainMenu = () => {
                 id='gallery-menu-button'
                 size='small'
                 aria-label='Меню'
-                sx={{position: 'absolute', bottom: 16, right: 16}}
+                sx={{position: 'fixed', bottom: 16, right: 16}}
                 aria-controls='gallery-menu'
                 aria-haspopup='true'
                 aria-expanded={open ? 'true' : undefined}
@@ -49,7 +49,7 @@ const MainMenu = () => {
                     'aria-labelledby': 'gallery-menu-button'
                 }}
             >
-                <MenuItem onClick={() => history.push(RouteType.ACCOUNT)}>
+                <MenuItem onClick={() => navigate(RouteType.ACCOUNT)}>
                     <ListItemIcon>
                         <Person/>
                     </ListItemIcon>

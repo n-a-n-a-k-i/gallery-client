@@ -5,7 +5,7 @@ const initialState: PhotoState = {
     isLoading: false,
     error: null,
     timeStart: Date.now(),
-    limit: 100,
+    limit: 0,
     dateColumn: DateColumn.dateCreate,
     sortDirection: SortDirection.DESC
 }
@@ -28,6 +28,11 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 ...state,
                 isLoading: false,
                 error: action.payload
+            }
+        case PhotoActionType.SET_PHOTO_LIMIT:
+            return {
+                ...state,
+                limit: action.payload
             }
         default:
             return state

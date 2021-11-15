@@ -26,9 +26,14 @@ export const fetchPhotos = (
 
         dispatch({
             type: PhotoActionType.FETCH_PHOTOS_ERROR,
-            payload: error.response?.data?.message
+            payload: error.response?.data?.message[0]
         })
 
     }
 
+})
+
+export const setPhotoLimit = (limit: number): PhotoAction => ({
+    type: PhotoActionType.SET_PHOTO_LIMIT,
+    payload: limit > 100 ? 100 : limit
 })

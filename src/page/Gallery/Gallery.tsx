@@ -15,11 +15,17 @@ const Gallery: FC = () => {
         dateColumn,
         sortDirection
     } = useTypedSelector(state => state.photo)
-    const {fetchPhotos} = useAction()
+    const {fetchPhotos, setPhotoLimit} = useAction()
+
+    const cols = Math.ceil(window.innerWidth / 256)
 
     useEffect(() => {
-        fetchPhotos(timeStart, limit, dateColumn, sortDirection)
+        setPhotoLimit(Math.ceil(window.innerWidth / 256) * Math.ceil(window.innerHeight / 256) * 2)
     }, [])
+
+    useEffect(() => {
+        if (limit > 0) fetchPhotos(timeStart, limit, dateColumn, sortDirection)
+    }, [limit])
 
     if (isLoading) {
         console.log('Загрузка фотографий')
@@ -38,8 +44,8 @@ const Gallery: FC = () => {
 
     return (
         <Box>
-            <ImageList sx={{ width: 500, height: 450 }} cols={5} rowHeight={100}>
-                {items.map((item) => {
+            <ImageList cols={cols}>
+                {items.map((item) => (
                     <ImageListItem key={item.id}>
                         <img
                             src={`${process.env.REACT_APP_GALLERY_SERVER_URL}/photo/thumbnail/${item.id}`}
@@ -47,7 +53,7 @@ const Gallery: FC = () => {
                             loading='lazy'
                         />
                     </ImageListItem>
-                })}
+                ))}
             </ImageList>
             <MainMenu/>
         </Box>

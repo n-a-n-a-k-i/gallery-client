@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {useTypedSelector} from "./hook/useTypedSelector";
 import {useAction} from "./hook/useAction";
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Navigate, Routes, Route} from "react-router-dom";
 import {RouteType} from "./type/route.type";
 import {CircularProgress, Grid} from "@mui/material";
 import SignIn from "./page/SignIn";
@@ -41,10 +41,10 @@ const App: FC = () => {
         if (error) console.log(error)
         return (
             <BrowserRouter>
-                <Switch>
-                    <Route exact path={RouteType.SIGN_IN} component={SignIn}/>
-                    <Redirect to={RouteType.SIGN_IN}/>
-                </Switch>
+                <Routes>
+                    <Route path={RouteType.SIGN_IN} element={<SignIn/>}/>
+                    <Route path={'*'} element={<Navigate to={RouteType.SIGN_IN}/>}/>
+                </Routes>
             </BrowserRouter>
         )
     }
@@ -52,11 +52,11 @@ const App: FC = () => {
     console.log(user)
     return (
         <BrowserRouter>
-            <Switch>
-                <Route exact path={RouteType.GALLERY} component={Gallery}/>
-                <Route exact path={RouteType.ACCOUNT} component={Account}/>
-                <Redirect to={RouteType.GALLERY}/>
-            </Switch>
+            <Routes>
+                <Route path={RouteType.GALLERY} element={<Gallery/>}/>
+                <Route path={RouteType.ACCOUNT} element={<Account/>}/>
+                <Route path={'*'} element={<Navigate to={RouteType.GALLERY}/>}/>
+            </Routes>
         </BrowserRouter>
     )
 

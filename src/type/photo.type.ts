@@ -28,7 +28,8 @@ export interface PhotoState {
 export enum PhotoActionType {
     FETCH_PHOTOS = 'FETCH_PHOTOS',
     FETCH_PHOTOS_SUCCESS = 'FETCH_PHOTOS_SUCCESS',
-    FETCH_PHOTOS_ERROR = 'FETCH_PHOTOS_ERROR'
+    FETCH_PHOTOS_ERROR = 'FETCH_PHOTOS_ERROR',
+    SET_PHOTO_LIMIT = 'SET_PHOTO_LIMIT'
 }
 
 interface FetchPhotosAction {
@@ -45,4 +46,9 @@ interface FetchPhotosErrorAction {
     payload: string
 }
 
-export type PhotoAction = FetchPhotosAction | FetchPhotosSuccessAction | FetchPhotosErrorAction
+interface SetPhotoLimitAction {
+    type: PhotoActionType.SET_PHOTO_LIMIT,
+    payload: number
+}
+
+export type PhotoAction = FetchPhotosAction | FetchPhotosSuccessAction | FetchPhotosErrorAction | SetPhotoLimitAction
