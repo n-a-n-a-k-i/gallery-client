@@ -6,7 +6,10 @@ export const fetchPhotos = (
     timeStart: number,
     limit: number,
     dateColumn: DateColumn,
-    sortDirection: SortDirection
+    sortDirection: SortDirection,
+    years: number[],
+    months: number[],
+    days: number[]
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
 
     try {
@@ -15,7 +18,9 @@ export const fetchPhotos = (
             type: PhotoActionType.FETCH_PHOTOS
         })
 
-        const response = await PhotoService.fetchPhotos(timeStart, limit, dateColumn, sortDirection)
+        const response = await PhotoService.fetchPhotos(
+            timeStart, limit, dateColumn, sortDirection, years, months, days
+        )
 
         dispatch({
             type: PhotoActionType.FETCH_PHOTOS_SUCCESS,
@@ -26,14 +31,59 @@ export const fetchPhotos = (
 
         dispatch({
             type: PhotoActionType.FETCH_PHOTOS_ERROR,
-            payload: error.response?.data?.message[0]
+            payload: error.response.data.message
         })
 
     }
 
 })
 
-export const setPhotoLimit = (limit: number): PhotoAction => ({
-    type: PhotoActionType.SET_PHOTO_LIMIT,
-    payload: limit > 100 ? 100 : limit
+export const setPhotoQuery = (
+    limit: number,
+    dateColumn: DateColumn,
+    sortDirection: SortDirection,
+    years: number[],
+    months: number[],
+    days: number[]
+) => (async (dispatch: Dispatch<PhotoAction>) => {
+
+    try {
+
+        dispatch({
+            type: PhotoActionType.FETCH_PHOTO_TOTAL
+        })
+
+        const response = await PhotoService.fetchPhotoTotal(years, months, days)
+
+        dispatch({
+            type: PhotoActionType.FETCH_PHOTO_TOTAL_SUCCESS,
+            payload: response.data
+        })
+
+        dispatch({
+            type: PhotoActionType.SET_PHOTO_QUERY,
+            payload: {
+
+                timeStart: sortDirection === SortDirection.DESC ? Date.now() : 0,
+
+                limit,
+                dateColumn,
+                sortDirection,
+
+                years,
+                months,
+                days
+
+            }
+        })
+
+    } catch (error: any) {
+
+        dispatch({
+            type: PhotoActionType.FETCH_PHOTO_TOTAL_ERROR,
+            payload: error.response.data.message
+        })
+
+    }
+
 })

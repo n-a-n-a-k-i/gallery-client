@@ -8,23 +8,29 @@ const Gallery: FC = () => {
 
     const {
         items,
+        total,
         isLoading,
         error,
         timeStart,
         limit,
         dateColumn,
-        sortDirection
+        sortDirection,
+        years,
+        months,
+        days
     } = useTypedSelector(state => state.photo)
-    const {fetchPhotos, setPhotoLimit} = useAction()
+
+    const {fetchPhotos, setPhotoQuery} = useAction()
 
     const cols = Math.ceil(window.innerWidth / 256)
 
     useEffect(() => {
-        setPhotoLimit(Math.ceil(window.innerWidth / 256) * Math.ceil(window.innerHeight / 256) * 2)
+        const limit = Math.ceil(window.innerWidth / 256) * Math.ceil(window.innerHeight / 256) * 2
+        setPhotoQuery(limit, dateColumn, sortDirection, [2019], [7], [19])
     }, [])
 
     useEffect(() => {
-        if (limit > 0) fetchPhotos(timeStart, limit, dateColumn, sortDirection)
+        if (limit > 0) fetchPhotos(timeStart, limit, dateColumn, sortDirection, years, months, days)
     }, [limit])
 
     if (isLoading) {
@@ -34,7 +40,13 @@ const Gallery: FC = () => {
 
     if (error) {
         console.log(error)
-        return <div>{error}</div>
+        return (
+            <>
+                {error.map((e, i) => (
+                    <div key={i}>{e}</div>
+                ))}
+            </>
+        )
     }
 
     if (!items.length) {
@@ -44,6 +56,7 @@ const Gallery: FC = () => {
 
     return (
         <Box>
+            <div>{years[0]}.{months[0]}.{days[0]} x{total}</div>
             <ImageList cols={cols}>
                 {items.map((item) => (
                     <ImageListItem key={item.id}>

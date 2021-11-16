@@ -1,17 +1,27 @@
 import {PhotoAction, PhotoActionType, PhotoState, DateColumn, SortDirection} from "../../type/photo.type";
 
 const initialState: PhotoState = {
+
     items: [],
+    total: 0,
+
     isLoading: false,
     error: null,
-    timeStart: Date.now(),
+
+    timeStart: 0,
+
     limit: 0,
     dateColumn: DateColumn.dateCreate,
-    sortDirection: SortDirection.DESC
+    sortDirection: SortDirection.DESC,
+    years: [],
+    months: [],
+    days: []
+
 }
 
 export const photoReducer = (state: PhotoState = initialState, action: PhotoAction) => {
     switch (action.type) {
+
         case PhotoActionType.FETCH_PHOTOS:
             return {
                 ...state,
@@ -20,7 +30,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
         case PhotoActionType.FETCH_PHOTOS_SUCCESS:
             return {
                 ...state,
-                items: action.payload,
+                items: [...state.items, ...action.payload],
                 isLoading: false
             }
         case PhotoActionType.FETCH_PHOTOS_ERROR:
@@ -29,11 +39,36 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 isLoading: false,
                 error: action.payload
             }
-        case PhotoActionType.SET_PHOTO_LIMIT:
+
+        case PhotoActionType.FETCH_PHOTO_TOTAL:
             return {
                 ...state,
-                limit: action.payload
+                isLoading: true
             }
+        case PhotoActionType.FETCH_PHOTO_TOTAL_SUCCESS:
+            return {
+                ...state,
+                total: action.payload
+            }
+        case PhotoActionType.FETCH_PHOTO_TOTAL_ERROR:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case PhotoActionType.SET_PHOTO_TIME_START:
+            return {
+                ...state,
+                timeStart: action.payload
+            }
+
+        case PhotoActionType.SET_PHOTO_QUERY:
+            return {
+                ...state,
+                items: [],
+                ...action.payload
+            }
+
         default:
             return state
     }
