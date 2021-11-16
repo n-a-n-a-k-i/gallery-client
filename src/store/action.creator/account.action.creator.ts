@@ -39,6 +39,7 @@ export const refresh = () => (async (dispatch: Dispatch<AccountAction>) => {
 
         const response = await AccountService.refresh()
 
+        localStorage.setItem('accessToken', response.data.accessToken)
         dispatch({
             type: AccountActionType.REFRESH_SUCCESS,
             payload: jwtDecode(response.data.accessToken)
