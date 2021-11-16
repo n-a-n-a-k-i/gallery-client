@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Fab} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {RouteType} from "../../type/route.type";
@@ -7,7 +7,7 @@ import ViewComfyIcon from '@mui/icons-material/ViewComfy'
 import DoneAllIcon from '@mui/icons-material/DoneAll'
 import SearchIcon from '@mui/icons-material/Search'
 
-const MenuMain = () => {
+const Tools: FC = () => {
 
     const navigate = useNavigate()
 
@@ -56,8 +56,8 @@ const MenuMain = () => {
                 <SearchIcon/>
             </Fab>
         </>
-    );
+    )
 
-};
+}
 
-export default MenuMain;
+export default Tools;

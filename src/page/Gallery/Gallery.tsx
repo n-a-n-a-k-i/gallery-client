@@ -2,7 +2,7 @@ import React, {FC, useEffect} from 'react';
 import {Box, ImageList, ImageListItem} from "@mui/material";
 import {useAction} from "../../hook/useAction";
 import {useTypedSelector} from "../../hook/useTypedSelector";
-import MenuMain from "./MenuMain";
+import Tools from './Tools'
 
 const Gallery: FC = () => {
 
@@ -55,7 +55,7 @@ const Gallery: FC = () => {
                     </ImageListItem>
                 ))}
             </ImageList>
-            <MenuMain/>
+            <Tools/>
         </Box>
     )
 
