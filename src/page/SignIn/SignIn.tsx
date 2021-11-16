@@ -1,6 +1,5 @@
 import React, {FC, useState} from 'react';
 import {
-    Avatar,
     Box,
     Button,
     Container,
@@ -13,7 +12,8 @@ import {
     Typography
 } from "@mui/material";
 import {useAction} from "../../hook/useAction";
-import {Login, Visibility, VisibilityOff} from "@mui/icons-material";
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 const SignIn: FC = () => {
 
@@ -32,12 +32,8 @@ const SignIn: FC = () => {
                     alignItems: 'center'
                 }}
             >
-                <Avatar sx={{m: 1}}>
-                    <Login/>
-                </Avatar>
-                <Typography variant='h5'>Gallery</Typography>
-                <Typography>Вход в систему</Typography>
-                <Box component="form" onSubmit={() => signIn(username, password)} noValidate sx={{mt: 1}}>
+                <Typography variant='h3'>Gallery</Typography>
+                <Box component="form" onSubmit={() => signIn(username, password)} noValidate sx={{mt: 3}}>
                     <TextField
                         label='Имя пользователя'
                         value={username}
@@ -64,7 +60,7 @@ const SignIn: FC = () => {
                                         onMouseDown={event => event.preventDefault()}
                                         edge='end'
                                     >
-                                        {passwordVisible ? <VisibilityOff/> : <Visibility/>}
+                                        {passwordVisible ? <VisibilityOffIcon/> : <VisibilityIcon/>}
                                     </IconButton>
                                 </InputAdornment>
                             }

@@ -1,12 +1,16 @@
 import React from 'react';
 import {Fab} from "@mui/material";
-import {DoneAll, Search, Settings, ViewComfy} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
 import {RouteType} from "../../type/route.type";
+import SettingsIcon from '@mui/icons-material/Settings'
+import ViewComfyIcon from '@mui/icons-material/ViewComfy'
+import DoneAllIcon from '@mui/icons-material/DoneAll'
+import SearchIcon from '@mui/icons-material/Search'
 
 const MenuMain = () => {
 
     const navigate = useNavigate()
+
     const position = 'fixed'
     const bottom = 8
     const size = 56
@@ -16,17 +20,41 @@ const MenuMain = () => {
         <>
             <Fab
                 onClick={() => navigate(RouteType.SETTINGS)}
-                sx={{position, right: right(3), bottom}}
-            ><Settings/></Fab>
+                sx={{
+                    position,
+                    right: right(3),
+                    bottom
+                }}
+            >
+                <SettingsIcon/>
+            </Fab>
             <Fab
-                sx={{position, right: right(2), bottom}}
-            ><ViewComfy/></Fab>
+                sx={{
+                    position,
+                    right: right(2),
+                    bottom
+                }}
+            >
+                <ViewComfyIcon/>
+            </Fab>
             <Fab
-                sx={{position, right: right(1), bottom}}
-            ><DoneAll/></Fab>
+                sx={{
+                    position,
+                    right: right(1),
+                    bottom
+                }}
+            >
+                <DoneAllIcon/>
+            </Fab>
             <Fab
-                sx={{position, right: right(0), bottom}}
-            ><Search/></Fab>
+                sx={{
+                    position,
+                    right: right(0),
+                    bottom
+                }}
+            >
+                <SearchIcon/>
+            </Fab>
         </>
     );
 
