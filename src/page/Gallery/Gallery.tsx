@@ -7,17 +7,22 @@ import Tools from './Tools'
 const Gallery: FC = () => {
 
     const {
+
         items,
         total,
+
         isLoading,
         error,
+
         timeStart,
+
         limit,
         dateColumn,
         sortDirection,
         years,
         months,
         days
+
     } = useTypedSelector(state => state.photo)
 
     const {fetchPhotos, setPhotoQuery} = useAction()
@@ -27,10 +32,14 @@ const Gallery: FC = () => {
     useEffect(() => {
         const limit = Math.ceil(window.innerWidth / 256) * Math.ceil(window.innerHeight / 256) * 2
         setPhotoQuery(limit, dateColumn, sortDirection, [2019], [7], [19])
+        console.log('setPhotoQuery')
     }, [])
 
     useEffect(() => {
-        if (limit > 0) fetchPhotos(timeStart, limit, dateColumn, sortDirection, years, months, days)
+        if (limit) {
+            fetchPhotos(timeStart, limit, dateColumn, sortDirection, years, months, days)
+            console.log('fetchPhotos')
+        }
     }, [limit])
 
     if (isLoading) {

@@ -3,7 +3,7 @@ import galleryApi from "../api/gallery.api";
 
 export default class PhotoService {
 
-    static fetchPhotos(
+    static async fetchPhotos(
         timeStart: number,
         limit: number,
         dateColumn: DateColumn,
@@ -25,7 +25,7 @@ export default class PhotoService {
         })
     }
 
-    static fetchPhotoTotal(
+    static async fetchPhotoTotal(
         years: number[],
         months: number[],
         days: number[]
