@@ -3,82 +3,65 @@ import {Box, ImageList, ImageListItem} from "@mui/material";
 import {useAction} from "../../hook/useAction";
 import {useTypedSelector} from "../../hook/useTypedSelector";
 import Tools from './Tools'
+import {OrderColumn, OrderDirection} from "../../type/photo.type";
 
 const Gallery: FC = () => {
 
     const {
-
-        items,
-        total,
-
-        // isLoading,
-        error,
-
-        timeStart,
-
-        limit,
-        dateColumn,
-        sortDirection,
-        years,
-        months,
-        days
-
+        items, isFinish, years, months, days, orderColumn, orderDirection, limit
     } = useTypedSelector(state => state.photo)
 
-    const {fetchPhotos, setPhotoQuery} = useAction()
+    const {fetchPhotos, setPhotoParams} = useAction()
     const [fetching, setFetching] = useState<boolean>(false)
-
-    const cols = Math.ceil(window.innerWidth / 256)
-
+    const px = 256
     const onScroll = () => {
-        if (document.documentElement.scrollHeight - document.documentElement.scrollTop - window.innerHeight < 100) {
-            setFetching(true)
+
+        if (!isFinish) {
+
+            const current = document.documentElement.scrollHeight - document.documentElement.scrollTop - window.innerHeight
+            const delta = window.innerHeight / 2
+
+            if (current < delta) setFetching(true)
+
         }
+
     }
 
     useEffect(() => {
-        const limit = Math.ceil(window.innerWidth / 256) * Math.ceil(window.innerHeight / 256) * 2
-        setPhotoQuery(limit, dateColumn, sortDirection, [2019], [7], [19])
-        setTimeout(() => setFetching(true), 1000)
-        console.log('setPhotoQuery')
+
+        (async () => {
+
+            await setPhotoParams([2019], [7], [19], OrderColumn.dateCreate, OrderDirection.DESC, Math.ceil(window.innerWidth / px) * Math.ceil(window.innerHeight / px) * 2)
+            console.log('setPhotoParams', 3)
+            setFetching(true)
+
+        })()
 
         document.addEventListener('scroll', onScroll)
+
         return () => document.removeEventListener('scroll', onScroll)
+
     }, [])
 
     useEffect(() => {
-        if (fetching) {
-            fetchPhotos(timeStart, limit, dateColumn, sortDirection, years, months, days)
-            setTimeout(() => setFetching(false), 1000)
-            console.log('fetchPhotos')
-        }
+
+        (async () => {
+
+            if (fetching) {
+
+                await fetchPhotos(years, months, days, orderColumn, orderDirection, limit, items.length)
+                console.log('fetchPhotos', 3)
+                setFetching(false)
+
+            }
+
+        })()
+
     }, [fetching])
-
-    // if (isLoading) {
-    //     console.log('Загрузка фотографий')
-    //     return <div>Загрузка фотографйи</div>
-    // }
-
-    if (error) {
-        console.log(error)
-        return (
-            <>
-                {error.map((e, i) => (
-                    <div key={i}>{e}</div>
-                ))}
-            </>
-        )
-    }
-
-    // if (!items.length) {
-    //     console.log('Нет фотографий')
-    //     return <div>Нет фотографий</div>
-    // }
 
     return (
         <Box>
-            <div>{years[0]}.{months[0]}.{days[0]} x{total}</div>
-            <ImageList cols={cols}>
+            <ImageList cols={Math.ceil(window.innerWidth / px)}>
                 {items.map((item) =>
                     <ImageListItem key={item.id}>
                         <img

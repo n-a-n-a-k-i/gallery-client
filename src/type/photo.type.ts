@@ -5,40 +5,31 @@ export interface Photo {
     user: string
 }
 
-export enum DateColumn {
+export enum OrderColumn {
     dateCreate = 'dateCreate',
     dateImport = 'dateImport'
 }
 
-export enum SortDirection {
+export enum OrderDirection {
     ASC = 'ASC',
     DESC = 'DESC'
 }
 
-export interface PhotoTotalQuery {
+export interface PhotoParams {
     years: number[]
     months: number[]
     days: number[]
-}
-
-export interface PhotoQuery extends PhotoTotalQuery{
-
-    timeStart: number
-
+    orderColumn: OrderColumn
+    orderDirection: OrderDirection
     limit: number
-    dateColumn: DateColumn
-    sortDirection: SortDirection
-
 }
 
-export interface PhotoState extends PhotoQuery {
-
+export interface PhotoState extends PhotoParams {
     items: Photo[]
     total: number
-
     isLoading: boolean
+    isFinish: boolean
     error: null | string[]
-
 }
 
 export enum PhotoActionType {
@@ -51,8 +42,7 @@ export enum PhotoActionType {
     FETCH_PHOTO_TOTAL_SUCCESS = 'FETCH_PHOTO_TOTAL_SUCCESS',
     FETCH_PHOTO_TOTAL_ERROR = 'FETCH_PHOTO_TOTAL_ERROR',
 
-    SET_PHOTO_TIME_START = 'SET_PHOTO_TIME_START',
-    SET_PHOTO_QUERY = 'SET_PHOTO_QUERY'
+    SET_PHOTO_PARAMS = 'SET_PHOTO_PARAMS'
 
 }
 
@@ -84,14 +74,9 @@ interface FetchPhotoTotalErrorAction {
     payload: string[]
 }
 
-interface SetPhotoTimeStartAction {
-    type: PhotoActionType.SET_PHOTO_TIME_START,
-    payload: number
-}
-
-interface SetPhotoQueryAction {
-    type: PhotoActionType.SET_PHOTO_QUERY
-    payload: PhotoQuery
+interface SetPhotoParamsAction {
+    type: PhotoActionType.SET_PHOTO_PARAMS
+    payload: PhotoParams
 }
 
 export type PhotoAction =
@@ -101,5 +86,4 @@ export type PhotoAction =
     | FetchPhotoTotalAction
     | FetchPhotoTotalSuccessAction
     | FetchPhotoTotalErrorAction
-    | SetPhotoTimeStartAction
-    | SetPhotoQueryAction
+    | SetPhotoParamsAction

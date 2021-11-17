@@ -1,16 +1,18 @@
 import {Dispatch} from "redux";
-import {DateColumn, PhotoAction, PhotoActionType, SortDirection} from "../../type/photo.type";
+import {OrderColumn, OrderDirection, PhotoAction, PhotoActionType,} from "../../type/photo.type";
 import PhotoService from "../../service/photo.service";
 
 export const fetchPhotos = (
-    timeStart: number,
-    limit: number,
-    dateColumn: DateColumn,
-    sortDirection: SortDirection,
     years: number[],
     months: number[],
-    days: number[]
+    days: number[],
+    orderColumn: OrderColumn,
+    orderDirection: OrderDirection,
+    limit: number,
+    offset: number
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
+
+    console.log('fetchPhotos', 1)
 
     try {
 
@@ -18,8 +20,8 @@ export const fetchPhotos = (
             type: PhotoActionType.FETCH_PHOTOS
         })
 
-        const response = await PhotoService.fetchPhotos(
-            timeStart, limit, dateColumn, sortDirection, years, months, days
+        const response = await PhotoService.fetchAll(
+            years, months, days, orderColumn, orderDirection, limit, offset
         )
 
         dispatch({
@@ -36,48 +38,38 @@ export const fetchPhotos = (
 
     }
 
+    console.log('fetchPhotos', 2)
+
 })
 
-export const setPhotoQuery = (
-    limit: number,
-    dateColumn: DateColumn,
-    sortDirection: SortDirection,
+export const setPhotoParams = (
     years: number[],
     months: number[],
-    days: number[]
+    days: number[],
+    orderColumn: OrderColumn,
+    orderDirection: OrderDirection,
+    limit: number
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
+
+    console.log('setPhotoParams', 1)
 
     try {
 
         dispatch({
+            type: PhotoActionType.SET_PHOTO_PARAMS,
+            payload: {years, months, days, orderColumn, orderDirection, limit}
+        })
+
+        dispatch({
             type: PhotoActionType.FETCH_PHOTO_TOTAL
         })
-        console.log(1)
 
-        const response = await PhotoService.fetchPhotoTotal(years, months, days)
+        const response = await PhotoService.fetchTotal(years, months, days)
 
         dispatch({
             type: PhotoActionType.FETCH_PHOTO_TOTAL_SUCCESS,
             payload: response.data
         })
-        console.log(2)
-        dispatch({
-            type: PhotoActionType.SET_PHOTO_QUERY,
-            payload: {
-
-                timeStart: sortDirection === SortDirection.DESC ? Date.now() : 0,
-
-                limit,
-                dateColumn,
-                sortDirection,
-
-                years,
-                months,
-                days
-
-            }
-        })
-        console.log(3)
 
     } catch (error: any) {
 
@@ -87,5 +79,7 @@ export const setPhotoQuery = (
         })
 
     }
+
+    console.log('setPhotoParams', 2)
 
 })

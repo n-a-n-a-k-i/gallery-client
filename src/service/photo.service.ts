@@ -1,40 +1,40 @@
-import {DateColumn, Photo, SortDirection} from "../type/photo.type";
+import {OrderColumn, OrderDirection, Photo} from "../type/photo.type";
 import galleryApi from "../api/gallery.api";
 
 export default class PhotoService {
 
-    static async fetchPhotos(
-        timeStart: number,
-        limit: number,
-        dateColumn: DateColumn,
-        sortDirection: SortDirection,
+    static fetchAll(
         years: number[],
         months: number[],
-        days: number[]
+        days: number[],
+        orderColumn: OrderColumn,
+        orderDirection: OrderDirection,
+        limit: number,
+        offset: number
     ) {
         return galleryApi.get<Photo[]>('/photo', {
             params: {
-                timeStart,
+                years: years.length ? years.join(',') : null,
+                months: months.length ? months.join(',') : null,
+                days: days.length ? days.join(',') : null,
+                orderColumn,
+                orderDirection,
                 limit,
-                dateColumn,
-                sortDirection,
-                years: years.join(',') || null,
-                months: months.join(',') || null,
-                days: days.join(',') || null
+                offset
             }
         })
     }
 
-    static async fetchPhotoTotal(
+    static fetchTotal(
         years: number[],
         months: number[],
         days: number[]
     ) {
         return galleryApi.get<number>('/photo/total', {
             params: {
-                years: years.join(',') || null,
-                months: months.join(',') || null,
-                days: days.join(',') || null
+                years: years.length ? years.join(',') : null,
+                months: months.length ? months.join(',') : null,
+                days: days.length ? days.join(',') : null
             }
         })
     }

@@ -1,4 +1,4 @@
-import {PhotoAction, PhotoActionType, PhotoState, DateColumn, SortDirection} from "../../type/photo.type";
+import {OrderColumn, OrderDirection, PhotoAction, PhotoActionType, PhotoState} from "../../type/photo.type";
 
 const initialState: PhotoState = {
 
@@ -8,14 +8,13 @@ const initialState: PhotoState = {
     isLoading: false,
     error: null,
 
-    timeStart: 0,
-
-    limit: 0,
-    dateColumn: DateColumn.dateCreate,
-    sortDirection: SortDirection.DESC,
+    isFinish: false,
     years: [],
     months: [],
-    days: []
+    days: [],
+    orderColumn: OrderColumn.dateCreate,
+    orderDirection: OrderDirection.DESC,
+    limit: 0
 
 }
 
@@ -31,8 +30,8 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
             return {
                 ...state,
                 items: [...state.items, ...action.payload],
-                timeStart: (new Date(action.payload[action.payload.length - 1][state.dateColumn])).getTime(),
-                isLoading: false
+                isLoading: false,
+                isFinish: action.payload.length < state.limit
             }
         case PhotoActionType.FETCH_PHOTOS_ERROR:
             return {
@@ -57,16 +56,11 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 error: action.payload
             }
 
-        case PhotoActionType.SET_PHOTO_TIME_START:
-            return {
-                ...state,
-                timeStart: action.payload
-            }
-
-        case PhotoActionType.SET_PHOTO_QUERY:
+        case PhotoActionType.SET_PHOTO_PARAMS:
             return {
                 ...state,
                 items: [],
+                isFinish: false,
                 ...action.payload
             }
 
