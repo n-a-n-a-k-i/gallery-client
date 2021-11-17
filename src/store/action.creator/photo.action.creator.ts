@@ -52,6 +52,7 @@ export const setPhotoQuery = (
         dispatch({
             type: PhotoActionType.FETCH_PHOTO_TOTAL
         })
+        console.log(1)
 
         const response = await PhotoService.fetchPhotoTotal(years, months, days)
 
@@ -59,7 +60,7 @@ export const setPhotoQuery = (
             type: PhotoActionType.FETCH_PHOTO_TOTAL_SUCCESS,
             payload: response.data
         })
-
+        console.log(2)
         dispatch({
             type: PhotoActionType.SET_PHOTO_QUERY,
             payload: {
@@ -76,6 +77,7 @@ export const setPhotoQuery = (
 
             }
         })
+        console.log(3)
 
     } catch (error: any) {
 

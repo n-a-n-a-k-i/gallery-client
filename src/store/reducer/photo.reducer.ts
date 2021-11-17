@@ -31,6 +31,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
             return {
                 ...state,
                 items: [...state.items, ...action.payload],
+                timeStart: (new Date(action.payload[action.payload.length - 1][state.dateColumn])).getTime(),
                 isLoading: false
             }
         case PhotoActionType.FETCH_PHOTOS_ERROR:
