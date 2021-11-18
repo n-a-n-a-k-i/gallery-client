@@ -48,11 +48,13 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
         case PhotoActionType.FETCH_PHOTO_TOTAL_SUCCESS:
             return {
                 ...state,
-                total: action.payload
+                total: action.payload,
+                isLoading: false
             }
         case PhotoActionType.FETCH_PHOTO_TOTAL_ERROR:
             return {
                 ...state,
+                isLoading: false,
                 error: action.payload
             }
 

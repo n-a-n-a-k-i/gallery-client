@@ -12,22 +12,28 @@ export const fetchPhotos = (
     offset: number
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
 
-    console.log('fetchPhotos', 1)
-
     try {
+
+        console.log('fetchPhotos', 0)
 
         dispatch({
             type: PhotoActionType.FETCH_PHOTOS
         })
 
+        console.log('fetchPhotos', 1)
+
         const response = await PhotoService.fetchAll(
             years, months, days, orderColumn, orderDirection, limit, offset
         )
+
+        console.log('fetchPhotos', 2)
 
         dispatch({
             type: PhotoActionType.FETCH_PHOTOS_SUCCESS,
             payload: response.data
         })
+
+        console.log('fetchPhotos', 3)
 
     } catch (error: any) {
 
@@ -37,8 +43,6 @@ export const fetchPhotos = (
         })
 
     }
-
-    console.log('fetchPhotos', 2)
 
 })
 
@@ -51,25 +55,33 @@ export const setPhotoParams = (
     limit: number
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
 
-    console.log('setPhotoParams', 1)
-
     try {
+
+        console.log('setPhotoParams', 0)
 
         dispatch({
             type: PhotoActionType.SET_PHOTO_PARAMS,
             payload: {years, months, days, orderColumn, orderDirection, limit}
         })
 
+        console.log('setPhotoParams', 1)
+
         dispatch({
             type: PhotoActionType.FETCH_PHOTO_TOTAL
         })
 
+        console.log('setPhotoParams', 2)
+
         const response = await PhotoService.fetchTotal(years, months, days)
+
+        console.log('setPhotoParams', 3)
 
         dispatch({
             type: PhotoActionType.FETCH_PHOTO_TOTAL_SUCCESS,
             payload: response.data
         })
+
+        console.log('setPhotoParams', 4)
 
     } catch (error: any) {
 
@@ -79,7 +91,5 @@ export const setPhotoParams = (
         })
 
     }
-
-    console.log('setPhotoParams', 2)
 
 })

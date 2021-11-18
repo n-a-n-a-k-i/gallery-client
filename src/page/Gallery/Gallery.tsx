@@ -8,8 +8,11 @@ import {OrderColumn, OrderDirection} from "../../type/photo.type";
 const Gallery: FC = () => {
 
     const {
-        items, isFinish, years, months, days, orderColumn, orderDirection, limit
+        items, total, isLoading, error, isFinish, years, months, days, orderColumn, orderDirection, limit
     } = useTypedSelector(state => state.photo)
+
+    console.log('start')
+    console.log(items, total.toString(), isLoading.toString(), error, isFinish, years, months, days, orderColumn, orderDirection, limit)
 
     const {fetchPhotos, setPhotoParams} = useAction()
     const [fetching, setFetching] = useState<boolean>(false)
@@ -31,8 +34,9 @@ const Gallery: FC = () => {
 
         (async () => {
 
+            console.log('setPhotoParams', 'start')
             await setPhotoParams([2019], [7], [19], OrderColumn.dateCreate, OrderDirection.DESC, Math.ceil(window.innerWidth / px) * Math.ceil(window.innerHeight / px) * 2)
-            console.log('setPhotoParams', 3)
+            console.log('setPhotoParams', 'finish')
             setFetching(true)
 
         })()
@@ -49,8 +53,9 @@ const Gallery: FC = () => {
 
             if (fetching) {
 
+                console.log('fetchPhotos', 'start')
                 await fetchPhotos(years, months, days, orderColumn, orderDirection, limit, items.length)
-                console.log('fetchPhotos', 3)
+                console.log('fetchPhotos', 'finish')
                 setFetching(false)
 
             }
@@ -58,6 +63,8 @@ const Gallery: FC = () => {
         })()
 
     }, [fetching])
+
+    console.log('finish', fetching.toString())
 
     return (
         <Box>
