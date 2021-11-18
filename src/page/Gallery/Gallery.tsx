@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Box, CircularProgress, ImageList, ImageListItem} from "@mui/material";
+import {Box, CircularProgress, Container, ImageList, ImageListItem, Typography} from "@mui/material";
 import {useAction} from "../../hook/useAction";
 import {useTypedSelector} from "../../hook/useTypedSelector";
 import Tools from './Tools'
@@ -12,7 +12,7 @@ const Gallery: FC = () => {
     } = useTypedSelector(state => state.photo)
 
     console.log('start')
-    console.log(items, total.toString(), isLoading.toString(), error, isFinish, years, months, days, orderColumn, orderDirection, limit)
+    console.log(items, total, isLoading.toString(), error, isFinish, years, months, days, orderColumn, orderDirection, limit)
 
     const {fetchPhotos, setPhotoParams} = useAction()
     const [fetching, setFetching] = useState<boolean>(false)
@@ -35,7 +35,7 @@ const Gallery: FC = () => {
         (async () => {
 
             console.log('setPhotoParams', 'start')
-            await setPhotoParams([2019], [7], [19], OrderColumn.dateCreate, OrderDirection.DESC, Math.ceil(window.innerWidth / px) * Math.ceil(window.innerHeight / px) * 2)
+            await setPhotoParams([2020], [9], [13], OrderColumn.dateCreate, OrderDirection.DESC, Math.ceil(window.innerWidth / px) * Math.ceil(window.innerHeight / px) * 2)
             console.log('setPhotoParams', 'finish')
             setFetching(true)
 
@@ -68,7 +68,26 @@ const Gallery: FC = () => {
 
     return (
         <Box>
-            <ImageList cols={Math.ceil(window.innerWidth / px)}>
+            {
+                total !== null && (
+                    <Container
+                        sx={{
+                            height: 80,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'right'
+                        }}
+                    >
+                        <Typography variant='h3'>{total} шт</Typography>
+                    </Container>
+                )
+            }
+            <ImageList
+                cols={Math.ceil(window.innerWidth / px)}
+                sx={{
+                    m: 0
+                }}
+            >
                 {items.map((item) =>
                     <ImageListItem key={item.id}>
                         <img
@@ -79,13 +98,17 @@ const Gallery: FC = () => {
                     </ImageListItem>
                 )}
             </ImageList>
-            <Box sx={{
-                my: 4,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-            }}>
-                <CircularProgress/>
+            <Box
+                sx={{
+                    height: 40,
+                    mt: 1,
+                    mb: 9,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
+            >
+                {isLoading && <CircularProgress/>}
             </Box>
             <Tools/>
         </Box>

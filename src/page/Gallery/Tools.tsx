@@ -29,6 +29,7 @@ const Tools: FC = () => {
                 <SettingsIcon/>
             </Fab>
             <Fab
+                disabled
                 sx={{
                     position,
                     right: right(2),
@@ -38,6 +39,7 @@ const Tools: FC = () => {
                 <ViewComfyIcon/>
             </Fab>
             <Fab
+                disabled
                 sx={{
                     position,
                     right: right(1),
@@ -47,6 +49,7 @@ const Tools: FC = () => {
                 <DoneAllIcon/>
             </Fab>
             <Fab
+                disabled
                 sx={{
                     position,
                     right: right(0),

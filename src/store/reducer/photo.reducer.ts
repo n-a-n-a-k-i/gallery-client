@@ -3,7 +3,7 @@ import {OrderColumn, OrderDirection, PhotoAction, PhotoActionType, PhotoState} f
 const initialState: PhotoState = {
 
     items: [],
-    total: 0,
+    total: null,
 
     isLoading: false,
     error: null,
@@ -43,6 +43,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
         case PhotoActionType.FETCH_PHOTO_TOTAL:
             return {
                 ...state,
+                total: null,
                 isLoading: true
             }
         case PhotoActionType.FETCH_PHOTO_TOTAL_SUCCESS:

@@ -26,7 +26,7 @@ export interface PhotoParams {
 
 export interface PhotoState extends PhotoParams {
     items: Photo[]
-    total: number
+    total: number | null
     isLoading: boolean
     isFinish: boolean
     error: null | string[]
