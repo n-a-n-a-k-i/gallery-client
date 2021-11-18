@@ -19,17 +19,26 @@ const Settings: FC = () => {
 
     return (
         <>
-            <Container maxWidth='xs'>
+            <Container
+                maxWidth='xs'
+                sx={{
+                    mt: 4
+                }}
+            >
                 <Box
                     sx={{
-                        marginTop: 8,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center'
                     }}
                 >
                     <Typography variant='h3'>Настройки</Typography>
-                    <Card sx={{mt: 3, width: '100%'}}>
+                    <Card
+                        sx={{
+                            mt: 4,
+                            width: '100%'
+                        }}
+                    >
                         <List>
                             <ListItem disablePadding>
                                 <ListItemButton onClick={() => signOut()}>

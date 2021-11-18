@@ -23,17 +23,28 @@ const SignIn: FC = () => {
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false)
 
     return (
-        <Container maxWidth='xs'>
+        <Container
+            maxWidth='xs'
+            sx={{
+                mt: 4
+            }}
+        >
             <Box
                 sx={{
-                    marginTop: 8,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center'
                 }}
             >
                 <Typography variant='h3'>Gallery</Typography>
-                <Box component="form" onSubmit={() => signIn(username, password)} noValidate sx={{mt: 3}}>
+                <Box
+                    component="form"
+                    onSubmit={() => signIn(username, password)}
+                    noValidate
+                    sx={{
+                        mt: 4
+                    }}
+                >
                     <TextField
                         label='Имя пользователя'
                         value={username}
@@ -44,7 +55,11 @@ const SignIn: FC = () => {
                         fullWidth
                         autoFocus
                     />
-                    <FormControl variant='outlined' margin='normal' fullWidth>
+                    <FormControl
+                        variant='outlined'
+                        margin='normal'
+                        fullWidth
+                    >
                         <InputLabel required>Пароль</InputLabel>
                         <OutlinedInput
                             label='Пароль'
@@ -70,7 +85,7 @@ const SignIn: FC = () => {
                         type='submit'
                         variant='contained'
                         fullWidth
-                        sx={{mt: 3, mb: 2}}
+                        sx={{mt: 4}}
                     >
                         Войти
                     </Button>

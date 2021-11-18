@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Box, ImageList, ImageListItem} from "@mui/material";
+import {Box, CircularProgress, ImageList, ImageListItem} from "@mui/material";
 import {useAction} from "../../hook/useAction";
 import {useTypedSelector} from "../../hook/useTypedSelector";
 import Tools from './Tools'
@@ -79,6 +79,14 @@ const Gallery: FC = () => {
                     </ImageListItem>
                 )}
             </ImageList>
+            <Box sx={{
+                my: 4,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+            }}>
+                <CircularProgress/>
+            </Box>
             <Tools/>
         </Box>
     )
