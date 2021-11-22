@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
-import {useTypedSelector} from "../hook/useTypedSelector";
-import {useAction} from "../hook/useAction";
+import {useTypedSelector} from "../hook/use.typed.selector";
+import {useAction} from "../hook/use.action";
 
 const UserList: FC = () => {
 

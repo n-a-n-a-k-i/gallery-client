@@ -9,9 +9,9 @@ import {
     ListItemIcon,
     ListItemText, Typography
 } from "@mui/material";
-import {useAction} from "../../hook/useAction";
+import {useAction} from "../../hook/use.action";
 import LogoutIcon from '@mui/icons-material/Logout'
-import Tools from "./Tools";
+import Tools from "./tools";
 
 const Settings: FC = () => {
 

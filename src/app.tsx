@@ -1,12 +1,12 @@
 import React, {FC, useEffect, useState} from 'react';
-import {useTypedSelector} from "./hook/useTypedSelector";
-import {useAction} from "./hook/useAction";
+import {useTypedSelector} from "./hook/use.typed.selector";
+import {useAction} from "./hook/use.action";
 import {BrowserRouter, Navigate, Routes, Route} from "react-router-dom";
 import {RouteType} from "./type/route.type";
 import {CircularProgress, Grid} from "@mui/material";
-import SignIn from "./page/SignIn";
-import Gallery from "./page/Gallery";
-import Settings from "./page/Settings";
+import SignIn from "./page/sign.in";
+import Gallery from "./page/gallery";
+import Settings from "./page/settings";
 
 const App: FC = () => {
 

@@ -4,7 +4,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './app';
 import {Provider} from "react-redux";
 import {store} from "./store";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
@@ -24,7 +24,7 @@ let theme = createTheme({
                     width: 16
                 },
                 'body::-webkit-scrollbar-thumb': {
-                    height: 64,
+                    minHeight: 64,
                     borderRadius: 8,
                     border: '4px solid transparent',
                     backgroundClip: 'content-box',
