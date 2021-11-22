@@ -24,6 +24,7 @@ let theme = createTheme({
                     width: 16
                 },
                 'body::-webkit-scrollbar-thumb': {
+                    height: 64,
                     borderRadius: 8,
                     border: '4px solid transparent',
                     backgroundClip: 'content-box',

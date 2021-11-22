@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Box, CircularProgress, Container, ImageList, ImageListItem, ListSubheader, Typography} from "@mui/material";
+import {Box, CircularProgress, ImageList, ImageListItem, ListSubheader, Typography} from "@mui/material";
 import {useAction} from "../../hook/useAction";
 import {useTypedSelector} from "../../hook/useTypedSelector";
 import Tools from './Tools'
@@ -40,7 +40,6 @@ const Gallery: FC = () => {
 
             console.log('setPhotoParams', 'start')
             await setPhotoParams([], [], [], OrderColumn.dateCreate, OrderDirection.DESC, cols * rows * 2)
-            // await setPhotoParams([2020], [9], [13], OrderColumn.dateCreate, OrderDirection.DESC, cols * rows * 2)
             console.log('setPhotoParams', 'finish')
             setFetching(true)
 
@@ -85,7 +84,7 @@ const Gallery: FC = () => {
         <Box>
             {
                 total !== null && (
-                    <Container
+                    <Box
                         sx={{
                             height: 80,
                             display: 'flex',
@@ -93,8 +92,8 @@ const Gallery: FC = () => {
                             justifyContent: 'right'
                         }}
                     >
-                        <Typography variant='h3'>{total} шт</Typography>
-                    </Container>
+                        <Typography variant='h3' sx={{px: 2}}>{total} шт</Typography>
+                    </Box>
                 )
             }
             <ImageList
@@ -125,24 +124,27 @@ const Gallery: FC = () => {
 
                     if (isDivider) header = numberToString(day, 2) + '.' + numberToString(month + 1, 2) + '.' + year
 
-                    return (
-                        <>
-                            {isDivider && (
-                                <ImageListItem key={header} cols={cols}>
-                                    <ListSubheader>
-                                        {header}
-                                    </ListSubheader>
-                                </ImageListItem>
-                            )}
-                            <ImageListItem key={item.id}>
-                                <img
-                                    src={`${process.env.REACT_APP_GALLERY_SERVER_URL}/photo/thumbnail/${item.id}`}
-                                    alt={item.id}
-                                    loading='lazy'
-                                />
-                            </ImageListItem>
-                        </>
+                    let components = []
+
+                    if (isDivider) components.push(
+                        <ImageListItem key={header} cols={cols}>
+                            <ListSubheader component='div'>
+                                {header}
+                            </ListSubheader>
+                        </ImageListItem>
                     )
+
+                    components.push(
+                        <ImageListItem key={item.id}>
+                            <img
+                                src={`${process.env.REACT_APP_GALLERY_SERVER_URL}/photo/thumbnail/${item.id}`}
+                                alt={item.id}
+                                loading='lazy'
+                            />
+                        </ImageListItem>
+                    )
+
+                    return components
 
                 })}
             </ImageList>
