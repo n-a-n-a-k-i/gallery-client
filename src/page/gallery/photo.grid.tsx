@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Box, CircularProgress, ImageList} from "@mui/material";
+import {Box, CircularProgress, ImageList, Typography} from "@mui/material";
 import {useTypedSelector} from "../../hook/use.typed.selector";
 import {useAction} from "../../hook/use.action";
 import {OrderColumn, OrderDirection} from "../../type/photo.type";
@@ -10,7 +10,7 @@ import {addDivider} from "../../util/photo";
 const PhotoGrid: FC = () => {
 
     const {
-        items, isLoading, isFinish, years, months, days, orderColumn, orderDirection, limit
+        items, total, isLoading, isFinish, years, months, days, orderColumn, orderDirection, limit
     } = useTypedSelector(state => state.photo)
 
     const {fetchPhotos, setPhotoParams} = useAction()
@@ -66,6 +66,25 @@ const PhotoGrid: FC = () => {
 
     return (
         <>
+            {total !== null && (
+                <Box
+                    sx={{
+                        height: 80,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'right'
+                    }}
+                >
+                    <Typography
+                        variant='h3'
+                        sx={{
+                            px: 2
+                        }}
+                    >
+                        {total} шт
+                    </Typography>
+                </Box>
+            )}
             <ImageList
                 cols={cols}
                 sx={{
