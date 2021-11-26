@@ -6,7 +6,6 @@ import {RouteType} from "./type/route.type";
 import {CircularProgress, Grid} from "@mui/material";
 import SignIn from "./page/sign.in";
 import Gallery from "./page/gallery";
-import Settings from "./page/settings";
 
 const App: FC = () => {
 
@@ -54,7 +53,6 @@ const App: FC = () => {
         <BrowserRouter>
             <Routes>
                 <Route path={RouteType.GALLERY} element={<Gallery/>}/>
-                <Route path={RouteType.SETTINGS} element={<Settings/>}/>
                 <Route path={'*'} element={<Navigate to={RouteType.GALLERY}/>}/>
             </Routes>
         </BrowserRouter>
