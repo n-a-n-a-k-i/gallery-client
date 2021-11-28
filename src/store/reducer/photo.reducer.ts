@@ -9,6 +9,8 @@ const initialState: PhotoState = {
     error: null,
 
     isFinish: false,
+    preview: null,
+
     years: [],
     months: [],
     days: [],
@@ -57,6 +59,12 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 ...state,
                 isLoading: false,
                 error: action.payload
+            }
+
+        case PhotoActionType.SET_PHOTO_PREVIEW:
+            return {
+                ...state,
+                preview: action.payload
             }
 
         case PhotoActionType.SET_PHOTO_PARAMS:

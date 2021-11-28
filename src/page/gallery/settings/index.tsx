@@ -59,7 +59,12 @@ const Settings: FC = () => {
                     </List>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={onClose}>Назад</Button>
+                    <Button
+                        autoFocus
+                        onClick={onClose}
+                    >
+                        Назад
+                    </Button>
                 </DialogActions>
             </Dialog>
         </>

@@ -1,5 +1,5 @@
 import {OrderColumn, Photo} from "../type/photo.type";
-import {format} from "./format";
+import Format from "./format";
 
 export const addDivider = (items: Photo[], orderColumn: OrderColumn): (Photo | string)[] => {
 
@@ -9,24 +9,21 @@ export const addDivider = (items: Photo[], orderColumn: OrderColumn): (Photo | s
 
         let isDivider = true
 
-        const date = new Date(item[orderColumn])
-        const year = date.getFullYear()
-        const month = date.getMonth()
-        const day = date.getDate()
+        const currentDate = new Date(item[orderColumn])
+        const previousItem = items[i - 1]
 
-        const previous = items[i - 1]
+        if (previousItem) {
 
-        if (previous) {
+            const previousDate = new Date(previousItem[orderColumn])
 
-            const date = new Date(previous[orderColumn])
-
-            isDivider = date.getFullYear() !== year || date.getMonth() !== month || date.getDate() !== day
+            isDivider =
+                previousDate.getFullYear() !== currentDate.getFullYear()
+                || previousDate.getMonth() !== currentDate.getMonth()
+                || previousDate.getDate() !== currentDate.getDate()
 
         }
 
-        if (isDivider) photos.push(
-            format(day, 2) + '.' + format(month + 1, 2) + '.' + year
-        )
+        if (isDivider) photos.push(Format.date(currentDate, 'd.m.Y'))
 
         photos.push(item)
 

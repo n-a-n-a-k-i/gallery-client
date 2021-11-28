@@ -15,7 +15,11 @@ const Tools: FC = () => {
                 position: 'fixed',
                 right: 0,
                 bottom: 0,
-                left: 0
+                left: 0,
+                pointerEvents: 'none',
+                '& > *': {
+                    pointerEvents: 'auto'
+                }
             }}
         >
             <Settings/>

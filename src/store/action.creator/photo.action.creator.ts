@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {OrderColumn, OrderDirection, PhotoAction, PhotoActionType,} from "../../type/photo.type";
+import {OrderColumn, OrderDirection, Photo, PhotoAction, PhotoActionType,} from "../../type/photo.type";
 import PhotoService from "../../service/photo.service";
 
 export const fetchPhotos = (
@@ -35,6 +35,15 @@ export const fetchPhotos = (
         })
 
     }
+
+})
+
+export const setPhotoPreview = (preview: Photo | null) => ((dispatch: Dispatch<PhotoAction>) => {
+
+    dispatch({
+        type: PhotoActionType.SET_PHOTO_PREVIEW,
+        payload: preview
+    })
 
 })
 

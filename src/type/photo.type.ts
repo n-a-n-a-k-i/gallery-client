@@ -28,8 +28,9 @@ export interface PhotoState extends PhotoParams {
     items: Photo[]
     total: number | null
     isLoading: boolean
-    isFinish: boolean
     error: null | string[]
+    isFinish: boolean
+    preview: Photo | null
 }
 
 export enum PhotoActionType {
@@ -42,6 +43,7 @@ export enum PhotoActionType {
     FETCH_PHOTO_TOTAL_SUCCESS = 'FETCH_PHOTO_TOTAL_SUCCESS',
     FETCH_PHOTO_TOTAL_ERROR = 'FETCH_PHOTO_TOTAL_ERROR',
 
+    SET_PHOTO_PREVIEW = 'SET_PHOTO_PREVIEW',
     SET_PHOTO_PARAMS = 'SET_PHOTO_PARAMS'
 
 }
@@ -74,6 +76,11 @@ interface FetchPhotoTotalErrorAction {
     payload: string[]
 }
 
+interface SetPhotoPreviewAction {
+    type: PhotoActionType.SET_PHOTO_PREVIEW,
+    payload: Photo | null
+}
+
 interface SetPhotoParamsAction {
     type: PhotoActionType.SET_PHOTO_PARAMS
     payload: PhotoParams
@@ -86,4 +93,5 @@ export type PhotoAction =
     | FetchPhotoTotalAction
     | FetchPhotoTotalSuccessAction
     | FetchPhotoTotalErrorAction
+    | SetPhotoPreviewAction
     | SetPhotoParamsAction
