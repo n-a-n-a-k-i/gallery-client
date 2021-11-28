@@ -11,7 +11,7 @@ const App: FC = () => {
 
     const {user, isAuthorized, isLoading, error} = useTypedSelector(state => state.account)
     const {refresh} = useAction()
-    const [isInit, setIsInit] = useState(true)
+    const [isInit, setIsInit] = useState<boolean>(true)
 
     useEffect(() => {
         refresh()

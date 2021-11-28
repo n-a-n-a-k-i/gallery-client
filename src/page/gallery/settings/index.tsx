@@ -15,7 +15,7 @@ const Settings: FC = () => {
 
     const {signOut} = useAction()
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState<boolean>(false)
     const theme = useTheme()
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
