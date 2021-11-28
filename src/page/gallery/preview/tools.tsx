@@ -11,7 +11,7 @@ const Tools: FC = () => {
     const {preview} = useTypedSelector(state => state.photo)
 
     const onDownload = () => {
-        if (preview) downloadPhoto(preview)
+        if (preview) downloadPhoto(preview.id)
     }
 
     const onClose = () => {

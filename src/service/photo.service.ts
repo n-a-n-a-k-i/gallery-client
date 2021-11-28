@@ -36,7 +36,7 @@ export default class PhotoService {
     }
 
     static download(id: string) {
-        return galleryApi.get(`/photo/download/${id}`, {
+        return galleryApi.get<Blob>(`/photo/download/${id}`, {
             responseType: 'blob'
         })
     }

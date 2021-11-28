@@ -1,5 +1,3 @@
-import {Photo} from "../type/photo.type";
-
 enum FormatType {
     YEAR = 'Y',
     MONTH = 'm',
@@ -28,21 +26,6 @@ export default class Format {
         }
 
         return new Date(date.getTime() + (date.getTimezoneOffset() * 60 * 1000))
-
-    }
-
-    static getFileName(photo: Photo): string {
-
-        const date = this.timeZone(photo.dateCreate)
-
-        const year = date.getFullYear().toString()
-        const month = this.numberToString(date.getMonth() + 1, 2)
-        const day = this.numberToString(date.getDate(), 2)
-        const hours = this.numberToString(date.getHours(), 2)
-        const minutes = this.numberToString(date.getMinutes(), 2)
-        const seconds = this.numberToString(date.getSeconds(), 2)
-
-        return `${year}-${month}-${day} ${hours}-${minutes}-${seconds} ${photo.id}.jpg`
 
     }
 
