@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {OrderColumn, OrderDirection, Photo, PhotoAction, PhotoActionType,} from "../../type/photo.type";
 import PhotoService from "../../service/photo.service";
+import Format from "../../util/format";
 
 export const fetchPhotos = (
     years: number[],
@@ -35,15 +36,6 @@ export const fetchPhotos = (
         })
 
     }
-
-})
-
-export const setPhotoPreview = (preview: Photo | null) => ((dispatch: Dispatch<PhotoAction>) => {
-
-    dispatch({
-        type: PhotoActionType.SET_PHOTO_PREVIEW,
-        payload: preview
-    })
 
 })
 
@@ -82,5 +74,34 @@ export const setPhotoParams = (
         })
 
     }
+
+})
+
+export const setPhotoPreview = (preview: Photo | null) => ((dispatch: Dispatch<PhotoAction>) => {
+
+    dispatch({
+        type: PhotoActionType.SET_PHOTO_PREVIEW,
+        payload: preview
+    })
+
+})
+
+export const downloadPhoto = (preview: Photo) => (async () => {
+
+    const response = await PhotoService.download(preview.id)
+
+    if (!response.data) {
+        return
+    }
+
+    const blob = new Blob([response.data])
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+
+    link.href = url
+    link.setAttribute('download', Format.getFileName(preview))
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
 
 })

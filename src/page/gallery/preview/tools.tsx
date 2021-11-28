@@ -1,11 +1,22 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Fab, Stack} from "@mui/material";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useAction} from "../../../hook/use.action";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import DownloadIcon from '@mui/icons-material/Download';
+import {useTypedSelector} from "../../../hook/use.typed.selector";
 
-const Tools = () => {
+const Tools: FC = () => {
 
-    const {setPhotoPreview} = useAction()
+    const {setPhotoPreview, downloadPhoto} = useAction()
+    const {preview} = useTypedSelector(state => state.photo)
+
+    const onDownload = () => {
+        if (preview) downloadPhoto(preview)
+    }
+
+    const onClose = () => {
+        setPhotoPreview(null)
+    }
 
     return (
         <Stack
@@ -25,7 +36,12 @@ const Tools = () => {
             }}
         >
             <Fab
-                onClick={() => setPhotoPreview(null)}
+                onClick={onDownload}
+            >
+                <DownloadIcon/>
+            </Fab>
+            <Fab
+                onClick={onClose}
             >
                 <ArrowBackIcon/>
             </Fab>

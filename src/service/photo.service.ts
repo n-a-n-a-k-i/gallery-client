@@ -25,17 +25,19 @@ export default class PhotoService {
         })
     }
 
-    static fetchTotal(
-        years: number[],
-        months: number[],
-        days: number[]
-    ) {
+    static fetchTotal(years: number[], months: number[], days: number[]) {
         return galleryApi.get<number>('/photo/total', {
             params: {
                 years: years.length ? years.join(',') : null,
                 months: months.length ? months.join(',') : null,
                 days: days.length ? days.join(',') : null
             }
+        })
+    }
+
+    static download(id: string) {
+        return galleryApi.get(`/photo/download/${id}`, {
+            responseType: 'blob'
         })
     }
 
