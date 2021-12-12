@@ -13,6 +13,7 @@ export const signIn = (username: string, password: string) => (async (dispatch: 
 
         const response = await AccountService.signIn(username, password)
 
+        localStorage.setItem('accessToken', response.data.accessToken)
         dispatch({
             type: AccountActionType.SIGN_IN_SUCCESS,
             payload: jwtDecode(response.data.accessToken)
