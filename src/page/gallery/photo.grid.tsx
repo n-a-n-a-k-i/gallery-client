@@ -2,10 +2,10 @@ import React, {FC, useEffect, useState} from 'react';
 import {Box, CircularProgress, ImageList, Typography} from "@mui/material";
 import {useTypedSelector} from "../../hook/use.typed.selector";
 import {useAction} from "../../hook/use.action";
-import {OrderColumn, OrderDirection} from "../../type/photo.type";
+import {OrderColumn, OrderDirection} from "../../store/photo/photo.type";
 import PhotoDivider from "./photo.divider";
 import PhotoItem from "./photo.item";
-import {addDivider} from "../../util/photo";
+import PhotoUtil from '../../util/photo.util';
 
 const PhotoGrid: FC = () => {
 
@@ -84,10 +84,10 @@ const PhotoGrid: FC = () => {
                     m: 0
                 }}
             >
-                {addDivider(items, orderColumn).map((photo) =>
-                    typeof photo === 'string'
-                    ? <PhotoDivider key={photo} cols={cols} title={photo}/>
-                    : <PhotoItem key={photo.id} photo={photo}/>
+                {PhotoUtil.addDivider(items, orderColumn).map((item) =>
+                    typeof item === 'string'
+                    ? <PhotoDivider key={item} cols={cols} title={item}/>
+                    : <PhotoItem key={item.id} photo={item}/>
                 )}
             </ImageList>
             <Box
@@ -104,6 +104,7 @@ const PhotoGrid: FC = () => {
             </Box>
         </>
     );
+
 };
 
 export default PhotoGrid;

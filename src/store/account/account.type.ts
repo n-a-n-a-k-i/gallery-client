@@ -77,16 +77,3 @@ export type AccountAction =
     | AccountActionSignOut
     | AccountActionSignOutSuccess
     | AccountActionSignOutError
-
-export interface AccountRequestSignIn {
-    username: string
-    password: string
-}
-
-export interface AccountResponseSignIn {
-    accessToken: string
-}
-
-export interface AccountResponseRefresh {
-    accessToken: string
-}

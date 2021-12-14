@@ -1,9 +1,9 @@
-import {AccountAction, AccountActionType, AccountState} from "../../type/account.type";
+import {AccountAction, AccountActionType, AccountState} from "./account.type";
 
 const initialState: AccountState = {
     user: null,
     isAuthorized: false,
-    isLoading: true,
+    isLoading: false,
     error: null
 }
 

@@ -1,7 +1,7 @@
 import {useDispatch} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as AccountActionCreator from '../store/action.creator/account.action.creator'
-import * as PhotoActionCreator from '../store/action.creator/photo.action.creator'
+import * as AccountActionCreator from '../store/account/account.action.creator'
+import * as PhotoActionCreator from '../store/photo/photo.action.creator'
 
 const actionCreators = {
     ...AccountActionCreator,

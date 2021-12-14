@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {OrderColumn, OrderDirection, Photo, PhotoAction, PhotoActionType,} from "../../type/photo.type";
+import {OrderColumn, OrderDirection, Photo, PhotoAction, PhotoActionType,} from "./photo.type";
 import PhotoService from "../../service/photo.service";
 
 export const fetchPhotos = (

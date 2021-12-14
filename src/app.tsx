@@ -2,10 +2,14 @@ import React, {FC, useEffect, useState} from 'react';
 import {useTypedSelector} from "./hook/use.typed.selector";
 import {useAction} from "./hook/use.action";
 import {BrowserRouter, Navigate, Routes, Route} from "react-router-dom";
-import {RouteType} from "./type/route.type";
-import {CircularProgress, Grid} from "@mui/material";
 import SignIn from "./page/sign.in";
 import Gallery from "./page/gallery";
+import Loader from "./component/loader";
+
+enum RouteType {
+    SIGN_IN = '/sign-in',
+    GALLERY = '/'
+}
 
 const App: FC = () => {
 
@@ -14,29 +18,28 @@ const App: FC = () => {
     const [isInit, setIsInit] = useState<boolean>(true)
 
     useEffect(() => {
-        refresh()
-        setIsInit(false)
+
+        (async () => {
+
+            setIsInit(false)
+            await refresh()
+
+        })()
+
     }, [])
 
     if (isInit) {
-        console.log('Инициализация')
-        return (
-            <Grid container alignItems='center' justifyContent='center' style={{minHeight: '100vh'}}>
-                <CircularProgress color='secondary'/>
-            </Grid>
-        )
+        console.log('render', 'init')
+        return <Loader text='Инициализация приложения'/>
     }
 
     if (isLoading) {
-        console.log('Загрузка')
-        return (
-            <Grid container alignItems='center' justifyContent='center' style={{minHeight: '100vh'}}>
-                <CircularProgress/>
-            </Grid>
-        )
+        console.log('render', 'load')
+        return <Loader text='Проверка учётной записи'/>
     }
 
     if (!isAuthorized) {
+        console.log('render', 'sign-in')
         if (error) console.log(error)
         return (
             <BrowserRouter>
@@ -48,7 +51,7 @@ const App: FC = () => {
         )
     }
 
-    console.log(user)
+    console.log('render', user)
     return (
         <BrowserRouter>
             <Routes>

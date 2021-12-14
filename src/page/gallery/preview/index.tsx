@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import {Dialog, Typography} from "@mui/material";
 import {useTypedSelector} from "../../../hook/use.typed.selector";
-import Format from "../../../util/format";
+import FormatUtil from "../../../util/format.util";
 import Tools from "./tools";
 
 const Preview: FC = () => {
@@ -33,7 +33,7 @@ const Preview: FC = () => {
                     left: 0
                 }}
             >
-                {isOpen && Format.date(Format.timeZone(preview.dateCreate), 'H:i:s d.m.Y')}
+                {isOpen && FormatUtil.date(FormatUtil.timeZone(preview.dateCreate), 'H:i:s d.m.Y')}
             </Typography>}
             {isOpen && <img
                 src={process.env.REACT_APP_GALLERY_SERVER_URL + '/photo/preview/' + preview?.id}

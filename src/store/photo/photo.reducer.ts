@@ -1,4 +1,4 @@
-import {OrderColumn, OrderDirection, PhotoAction, PhotoActionType, PhotoState} from "../../type/photo.type";
+import {OrderColumn, OrderDirection, PhotoAction, PhotoActionType, PhotoState} from "./photo.type";
 
 const initialState: PhotoState = {
 

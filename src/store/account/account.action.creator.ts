@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {AccountAction, AccountActionType} from "../../type/account.type";
+import {AccountAction, AccountActionType} from "./account.type";
 import AccountService from "../../service/account.service";
 import jwtDecode from "jwt-decode";
 
@@ -34,17 +34,28 @@ export const refresh = () => (async (dispatch: Dispatch<AccountAction>) => {
 
     try {
 
+        console.log('action', 'refresh')
+
         dispatch({
             type: AccountActionType.REFRESH
         })
 
+        console.log('action', 'request')
+
         const response = await AccountService.refresh()
 
+        console.log('action', 'local storage')
+
         localStorage.setItem('accessToken', response.data.accessToken)
+
+        console.log('action', 'success')
+
         dispatch({
             type: AccountActionType.REFRESH_SUCCESS,
             payload: jwtDecode(response.data.accessToken)
         })
+
+        console.log('action', 'finish')
 
     } catch (error: any) {
 

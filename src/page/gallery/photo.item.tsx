@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Photo} from "../../type/photo.type";
+import {Photo} from "../../store/photo/photo.type";
 import {ImageListItem} from "@mui/material";
 import {useAction} from "../../hook/use.action";
 

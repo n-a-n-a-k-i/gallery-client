@@ -1,6 +1,18 @@
 import {AxiosResponse} from 'axios'
-import {AccountRequestSignIn, AccountResponseRefresh, AccountResponseSignIn} from "../type/account.type";
 import {accountApi} from "../api/account.api";
+
+interface AccountRequestSignIn {
+    username: string
+    password: string
+}
+
+interface AccountResponseSignIn {
+    accessToken: string
+}
+
+interface AccountResponseRefresh {
+    accessToken: string
+}
 
 export default class AccountService {
 

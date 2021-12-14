@@ -1,4 +1,4 @@
-import {OrderColumn, OrderDirection, Photo} from "../type/photo.type";
+import {OrderColumn, OrderDirection, Photo} from "../store/photo/photo.type";
 import galleryApi from "../api/gallery.api";
 
 export default class PhotoService {
