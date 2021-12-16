@@ -33,7 +33,7 @@ const Preview: FC = () => {
                     left: 0
                 }}
             >
-                {isOpen && FormatUtil.date(FormatUtil.timeZone(preview.dateCreate), 'H:i:s d.m.Y')}
+                {isOpen && FormatUtil.date(preview.dateCreate, 'H:i:s d.m.Y')}
             </Typography>}
             {isOpen && <img
                 src={process.env.REACT_APP_GALLERY_SERVER_URL + '/photo/preview/' + preview?.id}

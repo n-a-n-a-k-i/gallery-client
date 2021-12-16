@@ -19,16 +19,6 @@ export default class FormatUtil {
 
     }
 
-    static timeZone(date: Date | string): Date {
-
-        if (typeof date === 'string') {
-            date = new Date(date)
-        }
-
-        return new Date(date.getTime() + (date.getTimezoneOffset() * 60 * 1000))
-
-    }
-
     static date(date: Date | string = new Date(), format: string = 'Y.m.d H:i:s'): string {
 
         const {YEAR, MONTH, DAY, HOURS, MINUTES, SECONDS} = FormatUtilType
