@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Box, CircularProgress, ImageList, Typography} from "@mui/material";
+import {Box, CircularProgress, ImageList} from "@mui/material";
 import {useTypedSelector} from "../../hook/use.typed.selector";
 import {useAction} from "../../hook/use.action";
 import {OrderColumn, OrderDirection} from "../../store/photo/photo.type";
@@ -10,7 +10,7 @@ import PhotoUtil from '../../util/photo.util';
 const PhotoGrid: FC = () => {
 
     const {
-        items, total, isLoading, isFinish, years, months, days, orderColumn, orderDirection, limit
+        items, isLoading, isFinish, years, months, days, orderColumn, orderDirection, limit
     } = useTypedSelector(state => state.photo)
 
     const {fetchPhotos, setPhotoParams} = useAction()
@@ -66,33 +66,6 @@ const PhotoGrid: FC = () => {
 
     return (
         <>
-            {total !== null && (
-                <Box
-                    sx={{
-                        py: 2,
-                        bgcolor: 'grey.900',
-                        display: 'flex',
-                        justifyContent: 'space-between'
-                    }}
-                >
-                    <Typography
-                        variant='h5'
-                        sx={{
-                            ml: 2
-                        }}
-                    >
-                        Галерея
-                    </Typography>
-                    <Typography
-                        variant='h5'
-                        sx={{
-                            mr: 2
-                        }}
-                    >
-                        {total} шт
-                    </Typography>
-                </Box>
-            )}
             <ImageList
                 cols={cols}
                 sx={{
@@ -118,8 +91,8 @@ const PhotoGrid: FC = () => {
                 {isLoading && <CircularProgress/>}
             </Box>
         </>
-    );
+    )
 
-};
+}
 
-export default PhotoGrid;
+export default PhotoGrid
