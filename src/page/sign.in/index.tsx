@@ -37,7 +37,7 @@ const SignIn: FC = () => {
                     alignItems: 'center'
                 }}
             >
-                <Typography variant='h5'>Gallery</Typography>
+                <Typography variant='h5'>Галерея</Typography>
                 <Box
                     component="form"
                     onSubmit={() => signIn(username, password)}

@@ -67,16 +67,31 @@ const PhotoGrid: FC = () => {
     return (
         <>
             {total !== null && (
-                <Typography
-                    variant='h5'
+                <Box
                     sx={{
                         py: 2,
-                        pr: 2,
-                        textAlign: 'right'
+                        bgcolor: 'grey.900',
+                        display: 'flex',
+                        justifyContent: 'space-between'
                     }}
                 >
-                    {total} шт
-                </Typography>
+                    <Typography
+                        variant='h5'
+                        sx={{
+                            ml: 2
+                        }}
+                    >
+                        Галерея
+                    </Typography>
+                    <Typography
+                        variant='h5'
+                        sx={{
+                            mr: 2
+                        }}
+                    >
+                        {total} шт
+                    </Typography>
+                </Box>
             )}
             <ImageList
                 cols={cols}
