@@ -1,4 +1,4 @@
-import {OrderColumn, OrderDirection, Photo} from "../store/photo/photo.type";
+import {DateColumn, OrderDirection, Photo} from "../store/photo/photo.type";
 import galleryApi from "../api/gallery.api";
 
 export default class PhotoService {
@@ -7,7 +7,7 @@ export default class PhotoService {
         years: number[],
         months: number[],
         days: number[],
-        orderColumn: OrderColumn,
+        dateColumn: DateColumn,
         orderDirection: OrderDirection,
         limit: number,
         offset: number
@@ -17,7 +17,7 @@ export default class PhotoService {
                 years: years.length ? years.join(',') : null,
                 months: months.length ? months.join(',') : null,
                 days: days.length ? days.join(',') : null,
-                orderColumn,
+                dateColumn,
                 orderDirection,
                 limit,
                 offset
@@ -25,12 +25,18 @@ export default class PhotoService {
         })
     }
 
-    static fetchTotal(years: number[], months: number[], days: number[]) {
+    static fetchTotal(
+        years: number[],
+        months: number[],
+        days: number[],
+        dateColumn: DateColumn
+    ) {
         return galleryApi.get<number>('/photo/total', {
             params: {
                 years: years.length ? years.join(',') : null,
                 months: months.length ? months.join(',') : null,
-                days: days.length ? days.join(',') : null
+                days: days.length ? days.join(',') : null,
+                dateColumn
             }
         })
     }

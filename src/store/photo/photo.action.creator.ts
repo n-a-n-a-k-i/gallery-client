@@ -1,12 +1,12 @@
 import {Dispatch} from "redux";
-import {OrderColumn, OrderDirection, Photo, PhotoAction, PhotoActionType,} from "./photo.type";
+import {DateColumn, OrderDirection, Photo, PhotoAction, PhotoActionType} from "./photo.type";
 import PhotoService from "../../service/photo.service";
 
 export const fetchPhotos = (
     years: number[],
     months: number[],
     days: number[],
-    orderColumn: OrderColumn,
+    dateColumn: DateColumn,
     orderDirection: OrderDirection,
     limit: number,
     offset: number
@@ -19,7 +19,7 @@ export const fetchPhotos = (
         })
 
         const response = await PhotoService.fetchAll(
-            years, months, days, orderColumn, orderDirection, limit, offset
+            years, months, days, dateColumn, orderDirection, limit, offset
         )
 
         dispatch({
@@ -42,7 +42,7 @@ export const setPhotoParams = (
     years: number[],
     months: number[],
     days: number[],
-    orderColumn: OrderColumn,
+    dateColumn: DateColumn,
     orderDirection: OrderDirection,
     limit: number
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
@@ -51,14 +51,14 @@ export const setPhotoParams = (
 
         dispatch({
             type: PhotoActionType.SET_PHOTO_PARAMS,
-            payload: {years, months, days, orderColumn, orderDirection, limit}
+            payload: {years, months, days, dateColumn, orderDirection, limit}
         })
 
         dispatch({
             type: PhotoActionType.FETCH_PHOTO_TOTAL
         })
 
-        const response = await PhotoService.fetchTotal(years, months, days)
+        const response = await PhotoService.fetchTotal(years, months, days, dateColumn)
 
         dispatch({
             type: PhotoActionType.FETCH_PHOTO_TOTAL_SUCCESS,

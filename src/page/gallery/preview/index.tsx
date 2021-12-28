@@ -7,7 +7,7 @@ import Tools from "./tools";
 const Preview: FC = () => {
 
     const [clear, setClear] = useState<boolean>(false)
-    const {preview} = useTypedSelector(state => state.photo)
+    const {preview, dateColumn} = useTypedSelector(state => state.photo)
 
     const isOpen = !!preview
 
@@ -33,7 +33,7 @@ const Preview: FC = () => {
                     left: 0
                 }}
             >
-                {isOpen && FormatUtil.date(preview.dateCreate, 'H:i:s d.m.Y')}
+                {isOpen && FormatUtil.date(preview[dateColumn], 'H:i:s d.m.Y')}
             </Typography>}
             {isOpen && <img
                 src={process.env.REACT_APP_GALLERY_SERVER_URL + '/photo/preview/' + preview?.id}

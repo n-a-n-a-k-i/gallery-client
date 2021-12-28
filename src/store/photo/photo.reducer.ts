@@ -1,4 +1,4 @@
-import {OrderColumn, OrderDirection, PhotoAction, PhotoActionType, PhotoState} from "./photo.type";
+import {DateColumn, OrderDirection, PhotoAction, PhotoActionType, PhotoState} from "./photo.type";
 
 const initialState: PhotoState = {
 
@@ -14,7 +14,7 @@ const initialState: PhotoState = {
     years: [],
     months: [],
     days: [],
-    orderColumn: OrderColumn.dateCreate,
+    dateColumn: DateColumn.date,
     orderDirection: OrderDirection.DESC,
     limit: 0
 

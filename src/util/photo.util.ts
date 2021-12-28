@@ -1,9 +1,9 @@
-import {OrderColumn, Photo} from "../store/photo/photo.type";
+import {DateColumn, Photo} from "../store/photo/photo.type";
 import FormatUtil from "./format.util";
 
 export default class PhotoUtil {
 
-    static addDivider(photos: Photo[], orderColumn: OrderColumn): (Photo | string)[] {
+    static addDivider(photos: Photo[], dateColumn: DateColumn): (Photo | string)[] {
 
         const items: (Photo | string)[] = []
 
@@ -11,12 +11,12 @@ export default class PhotoUtil {
 
             let isDivider = true
 
-            const currentDate = new Date(photo[orderColumn])
+            const currentDate = new Date(photo[dateColumn])
             const previousPhoto = photos[i - 1]
 
             if (previousPhoto) {
 
-                const previousDate = new Date(previousPhoto[orderColumn])
+                const previousDate = new Date(previousPhoto[dateColumn])
 
                 isDivider =
                     previousDate.getFullYear() !== currentDate.getFullYear()

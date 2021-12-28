@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {Box, CircularProgress, ImageList} from "@mui/material";
 import {useTypedSelector} from "../../hook/use.typed.selector";
 import {useAction} from "../../hook/use.action";
-import {OrderColumn, OrderDirection} from "../../store/photo/photo.type";
+import {DateColumn, OrderDirection} from "../../store/photo/photo.type";
 import PhotoDivider from "./photo.divider";
 import PhotoItem from "./photo.item";
 import PhotoUtil from '../../util/photo.util';
@@ -10,7 +10,7 @@ import PhotoUtil from '../../util/photo.util';
 const PhotoGrid: FC = () => {
 
     const {
-        items, isLoading, isFinish, years, months, days, orderColumn, orderDirection, limit
+        items, isLoading, isFinish, years, months, days, dateColumn, orderDirection, limit
     } = useTypedSelector(state => state.photo)
 
     const {fetchPhotos, setPhotoParams} = useAction()
@@ -25,7 +25,8 @@ const PhotoGrid: FC = () => {
 
         if (!isFinish) {
 
-            const current = document.documentElement.scrollHeight - document.documentElement.scrollTop - window.innerHeight
+            const {scrollHeight, scrollTop} = document.documentElement
+            const current = scrollHeight - scrollTop - window.innerHeight
             const delta = window.innerHeight / 2
 
             if (current < delta) setFetching(true)
@@ -38,7 +39,14 @@ const PhotoGrid: FC = () => {
 
         (async () => {
 
-            await setPhotoParams([], [], [], OrderColumn.dateCreate, OrderDirection.DESC, cols * rows * 2)
+            await setPhotoParams(
+                [],
+                [],
+                [],
+                DateColumn.date,
+                OrderDirection.DESC,
+                cols * rows * 2
+            )
             setFetching(true)
 
         })()
@@ -55,7 +63,7 @@ const PhotoGrid: FC = () => {
 
             if (fetching) {
 
-                await fetchPhotos(years, months, days, orderColumn, orderDirection, limit, items.length)
+                await fetchPhotos(years, months, days, dateColumn, orderDirection, limit, items.length)
                 setFetching(false)
 
             }
@@ -72,7 +80,7 @@ const PhotoGrid: FC = () => {
                     m: 0
                 }}
             >
-                {PhotoUtil.addDivider(items, orderColumn).map((item) =>
+                {PhotoUtil.addDivider(items, dateColumn).map((item) =>
                     typeof item === 'string'
                     ? <PhotoDivider key={item} cols={cols} title={item}/>
                     : <PhotoItem key={item.id} photo={item}/>

@@ -1,13 +1,23 @@
 export interface Photo {
     id: string
-    dateCreate: Date
-    dateImport: Date
     user: string
+    date: string
+    atime: string
+    mtime: string
+    ctime: string
+    birthtime: string
+    createdAt: string
+    updatedAt: string
 }
 
-export enum OrderColumn {
-    dateCreate = 'dateCreate',
-    dateImport = 'dateImport'
+export enum DateColumn {
+    date = 'date',
+    atime = 'atime',
+    mtime = 'mtime',
+    ctime = 'ctime',
+    birthtime = 'birthtime',
+    createdAt = 'createdAt',
+    updatedAt = 'updatedAt'
 }
 
 export enum OrderDirection {
@@ -19,7 +29,7 @@ export interface PhotoParams {
     years: number[]
     months: number[]
     days: number[]
-    orderColumn: OrderColumn
+    dateColumn: DateColumn
     orderDirection: OrderDirection
     limit: number
 }
