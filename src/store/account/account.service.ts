@@ -1,30 +1,30 @@
 import {AxiosResponse} from 'axios'
-import {accountApi} from "../api/account.api";
+import {accountApi} from "../../api/account.api";
 
-interface AccountRequestSignIn {
+interface ReqSignIn {
     username: string
     password: string
 }
 
-interface AccountResponseSignIn {
+interface ResSignIn {
     accessToken: string
 }
 
-interface AccountResponseRefresh {
+interface ResRefresh {
     accessToken: string
 }
 
 export default class AccountService {
 
     static async signIn(username: string, password: string) {
-        return accountApi.post<AccountRequestSignIn, AxiosResponse<AccountResponseSignIn>>('/account/sign-in', {
+        return accountApi.post<ReqSignIn, AxiosResponse<ResSignIn>>('/account/sign-in', {
             username,
             password
         })
     }
 
     static async refresh() {
-        return accountApi.get<AccountResponseRefresh>('/account/refresh')
+        return accountApi.get<ResRefresh>('/account/refresh')
     }
 
     static async signOut() {

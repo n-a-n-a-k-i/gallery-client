@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 import {Fab, Stack} from "@mui/material";
-import {useAction} from "../../../hook/use.action";
+import {useAction} from "../../hook/use-action";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
-import {useTypedSelector} from "../../../hook/use.typed.selector";
+import {useTypedSelector} from "../../hook/use-typed-selector";
 
-const Tools: FC = () => {
+const PreviewToolbar: FC = () => {
 
     const {setPhotoPreview, downloadPhoto} = useAction()
     const {preview} = useTypedSelector(state => state.photo)
@@ -20,15 +20,15 @@ const Tools: FC = () => {
 
     return (
         <Stack
-            direction='row'
-            justifyContent='center'
+            direction="row"
             spacing={1}
+            position="fixed"
+            right={0}
+            bottom={0}
+            left={0}
+            justifyContent="center"
+            pb={1}
             sx={{
-                pb: 1,
-                position: 'fixed',
-                right: 0,
-                bottom: 0,
-                left: 0,
                 pointerEvents: 'none',
                 '& > *': {
                     pointerEvents: 'auto'
@@ -50,4 +50,4 @@ const Tools: FC = () => {
 
 }
 
-export default Tools
+export default PreviewToolbar

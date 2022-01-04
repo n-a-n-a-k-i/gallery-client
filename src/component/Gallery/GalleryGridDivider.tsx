@@ -6,11 +6,15 @@ interface PhotoDividerProps {
     title: string
 }
 
-const PhotoDivider: FC<PhotoDividerProps> = ({cols, title}) => {
+const GalleryGridDivider: FC<PhotoDividerProps> = ({cols, title}) => {
 
     return (
-        <ImageListItem cols={cols}>
-            <ListSubheader component='div'>
+        <ImageListItem
+            cols={cols}
+        >
+            <ListSubheader
+                component="div"
+            >
                 {title}
             </ListSubheader>
         </ImageListItem>
@@ -18,4 +22,4 @@ const PhotoDivider: FC<PhotoDividerProps> = ({cols, title}) => {
 
 }
 
-export default PhotoDivider
+export default GalleryGridDivider

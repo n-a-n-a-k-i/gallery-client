@@ -4,13 +4,13 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app';
+import App from './component/App';
 import {Provider} from "react-redux";
 import {store} from "./store";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {grey} from "@mui/material/colors";
 
-let theme = createTheme({
+const theme = createTheme({
     palette: {
         mode: 'dark'
     },

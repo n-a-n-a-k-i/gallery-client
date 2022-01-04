@@ -4,10 +4,9 @@ interface Payload {
 }
 
 export interface AccountState {
-    user: Payload | null
-    isAuthorized: boolean
+    user: null | Payload
     isLoading: boolean
-    error: string | null
+    errors: string[]
 }
 
 export enum AccountActionType {
@@ -37,7 +36,7 @@ interface AccountActionSignInSuccess {
 
 interface AccountActionSignInError {
     type: AccountActionType.SIGN_IN_ERROR
-    payload: string
+    payload: string[]
 }
 
 interface AccountActionRefresh {
@@ -51,7 +50,7 @@ interface AccountActionRefreshSuccess {
 
 interface AccountActionRefreshError {
     type: AccountActionType.REFRESH_ERROR
-    payload: string
+    payload: string[]
 }
 
 interface AccountActionSignOut {
@@ -64,10 +63,10 @@ interface AccountActionSignOutSuccess {
 
 interface AccountActionSignOutError {
     type: AccountActionType.SIGN_OUT_ERROR
-    payload: string
+    payload: string[]
 }
 
-export type AccountAction =
+export type AccountAction = (
     AccountActionSignIn
     | AccountActionSignInSuccess
     | AccountActionSignInError
@@ -77,3 +76,4 @@ export type AccountAction =
     | AccountActionSignOut
     | AccountActionSignOutSuccess
     | AccountActionSignOutError
+)

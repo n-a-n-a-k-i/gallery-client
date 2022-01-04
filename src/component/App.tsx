@@ -1,10 +1,10 @@
 import React, {FC, useEffect, useState} from 'react';
-import {useTypedSelector} from "./hook/use.typed.selector";
-import {useAction} from "./hook/use.action";
+import {useTypedSelector} from "../hook/use-typed-selector";
+import {useAction} from "../hook/use-action";
 import {BrowserRouter, Navigate, Routes, Route} from "react-router-dom";
-import SignIn from "./page/sign.in";
-import Gallery from "./page/gallery";
-import Loader from "./component/loader";
+import SignIn from "./SignIn";
+import Gallery from "./Gallery";
+import FullScreenLoader from "./common/FullScreenLoader";
 
 enum RouteType {
     SIGN_IN = '/sign-in',
@@ -13,7 +13,7 @@ enum RouteType {
 
 const App: FC = () => {
 
-    const {user, isAuthorized, isLoading, error} = useTypedSelector(state => state.account)
+    const {user, isLoading, errors} = useTypedSelector(state => state.account)
     const {refresh} = useAction()
     const [isInit, setIsInit] = useState<boolean>(true)
 
@@ -29,18 +29,17 @@ const App: FC = () => {
     }, [])
 
     if (isInit) {
-        console.log('render', 'init')
-        return <Loader text='Инициализация приложения'/>
+        return <FullScreenLoader messages={'Инициализация приложения'}/>
     }
 
     if (isLoading) {
-        console.log('render', 'load')
-        return <Loader text='Проверка учётной записи'/>
+        return <FullScreenLoader messages={'Проверка учётной записи'}/>
     }
 
-    if (!isAuthorized) {
-        console.log('render', 'sign-in')
-        if (error) console.log(error)
+    if (!user) {
+
+        if (errors) console.log(errors)
+
         return (
             <BrowserRouter>
                 <Routes>
@@ -49,9 +48,9 @@ const App: FC = () => {
                 </Routes>
             </BrowserRouter>
         )
+
     }
 
-    console.log('render', user)
     return (
         <BrowserRouter>
             <Routes>

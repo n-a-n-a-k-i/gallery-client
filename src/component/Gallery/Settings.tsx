@@ -9,18 +9,18 @@ import {
 } from "@mui/material";
 import SettingsIcon from '@mui/icons-material/Settings'
 import LogoutIcon from "@mui/icons-material/Logout";
-import {useAction} from "../../../hook/use.action";
+import {useAction} from "../../hook/use-action";
 
 const Settings: FC = () => {
 
     const {signOut} = useAction()
 
-    const [open, setOpen] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
     const theme = useTheme()
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
-    const onOpen = () => setOpen(true)
-    const onClose = () => setOpen(false)
+    const onOpen = () => setIsOpen(true)
+    const onClose = () => setIsOpen(false)
 
     return (
         <>
@@ -30,17 +30,19 @@ const Settings: FC = () => {
                 <SettingsIcon/>
             </Fab>
             <Dialog
-                open={open}
+                open={isOpen}
                 onClose={onClose}
                 fullScreen={fullScreen}
-                maxWidth='xs'
+                maxWidth="xs"
                 sx={{
                     '& .MuiDialog-paper': {
                         width: '100%'
                     }
                 }}
             >
-                <DialogTitle>Настройки</DialogTitle>
+                <DialogTitle>
+                    Настройки
+                </DialogTitle>
                 <DialogContent
                     dividers
                     sx={{
@@ -48,12 +50,19 @@ const Settings: FC = () => {
                     }}
                 >
                     <List>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => signOut()}>
+                        <ListItem
+                            disablePadding
+                        >
+                            <ListItemButton
+                                onClick={() => signOut()}
+                            >
                                 <ListItemIcon>
                                     <LogoutIcon/>
                                 </ListItemIcon>
-                                <ListItemText primary='Выход' secondary='Покинуть учётную запись'/>
+                                <ListItemText
+                                    primary="Выход"
+                                    secondary="Покинуть учётную запись"
+                                />
                             </ListItemButton>
                         </ListItem>
                     </List>

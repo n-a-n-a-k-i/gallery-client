@@ -1,5 +1,5 @@
 import axios from "axios";
-import AccountService from "../service/account.service";
+import AccountService from "../store/account/account.service";
 
 const galleryApi = axios.create({
     baseURL: process.env.REACT_APP_GALLERY_SERVER_URL,

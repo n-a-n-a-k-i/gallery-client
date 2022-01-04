@@ -1,5 +1,5 @@
-import {DateColumn, OrderDirection, Photo} from "../store/photo/photo.type";
-import galleryApi from "../api/gallery.api";
+import {DateColumn, OrderDirection, Photo} from "./photo.type";
+import galleryApi from "../../api/gallery.api";
 
 export default class PhotoService {
 

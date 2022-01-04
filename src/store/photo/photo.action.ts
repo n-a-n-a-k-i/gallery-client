@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {DateColumn, OrderDirection, Photo, PhotoAction, PhotoActionType} from "./photo.type";
-import PhotoService from "../../service/photo.service";
+import PhotoService from "./photo.service";
 
 export const fetchPhotos = (
     years: number[],
