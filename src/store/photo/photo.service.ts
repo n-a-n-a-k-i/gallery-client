@@ -1,22 +1,16 @@
-import {DateColumn, OrderDirection, Photo} from "./photo.type";
+import {DateColumn, Photo, PhotoFindParams, PhotoFindTotalParams, TotalDate} from "./photo.type";
 import galleryApi from "../../api/gallery.api";
 
 export default class PhotoService {
 
-    static fetchAll(
-        years: number[],
-        months: number[],
-        days: number[],
-        dateColumn: DateColumn,
-        orderDirection: OrderDirection,
-        limit: number,
-        offset: number
+    static find(
+        {years, months, days, dateColumn, orderDirection, limit, offset}: PhotoFindParams
     ) {
         return galleryApi.get<Photo[]>('/photo', {
             params: {
-                years: years.length ? years.join(',') : null,
-                months: months.length ? months.join(',') : null,
-                days: days.length ? days.join(',') : null,
+                years: years.join(',') || null,
+                months: months.join(',') || null,
+                days: days.join(',') || null,
                 dateColumn,
                 orderDirection,
                 limit,
@@ -25,26 +19,27 @@ export default class PhotoService {
         })
     }
 
-    static fetchTotal(
-        years: number[],
-        months: number[],
-        days: number[],
-        dateColumn: DateColumn
+    static download(id: string) {
+        return galleryApi.get<Blob>(`/photo/download/${id}`, {
+            responseType: 'blob'
+        })
+    }
+
+    static findTotal(
+        {years, months, days, dateColumn}: PhotoFindTotalParams
     ) {
         return galleryApi.get<number>('/photo/total', {
             params: {
-                years: years.length ? years.join(',') : null,
-                months: months.length ? months.join(',') : null,
-                days: days.length ? days.join(',') : null,
+                years: years.join(',') || null,
+                months: months.join(',') || null,
+                days: days.join(',') || null,
                 dateColumn
             }
         })
     }
 
-    static download(id: string) {
-        return galleryApi.get<Blob>(`/photo/download/${id}`, {
-            responseType: 'blob'
-        })
+    static findTotalDate(dateColumn: DateColumn) {
+        return galleryApi.get<TotalDate>(`/photo/total-date/${dateColumn}`)
     }
 
 }

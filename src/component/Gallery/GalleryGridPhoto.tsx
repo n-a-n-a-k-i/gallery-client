@@ -9,17 +9,17 @@ interface PhotoItemProps {
 
 const GalleryGridPhoto: FC<PhotoItemProps> = ({photo}) => {
 
-    const {setPhotoPreview} = useAction()
+    const {photoSetPreview} = useAction()
 
     return (
         <ImageListItem
-            onClick={() => setPhotoPreview(photo)}
+            onClick={() => photoSetPreview(photo)}
             sx={{
                 cursor: 'zoom-in'
             }}
         >
             <img
-                src={process.env.REACT_APP_GALLERY_SERVER_URL + '/photo/thumbnail/' + photo.id}
+                src={`${process.env.REACT_APP_SERVER_URL}/photo/thumbnail/${photo.id}`}
                 alt={photo.id}
                 loading="lazy"
             />

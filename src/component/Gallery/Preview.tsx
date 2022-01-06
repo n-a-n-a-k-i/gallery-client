@@ -37,7 +37,7 @@ const Preview: FC = () => {
             )}
             {isOpen && (
                 <img
-                    src={process.env.REACT_APP_GALLERY_SERVER_URL + '/photo/preview/' + preview?.id}
+                    src={process.env.REACT_APP_SERVER_URL + '/photo/preview/' + preview?.id}
                     alt={preview?.id}
                     loading="lazy"
                     onClick={() => setIsClear(!isClear)}

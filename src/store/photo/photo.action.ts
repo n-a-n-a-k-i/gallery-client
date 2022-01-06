@@ -1,106 +1,161 @@
 import {Dispatch} from "redux";
-import {DateColumn, OrderDirection, Photo, PhotoAction, PhotoActionType} from "./photo.type";
+import {
+    DateColumn,
+    Photo,
+    PhotoAction,
+    PhotoActionType,
+    PhotoFind,
+    PhotoFindParams,
+    PhotoFindTotalParams
+} from "./photo.type";
 import PhotoService from "./photo.service";
+import {ErrorMessage, getErrors} from "../../utility/error-response";
 
-export const fetchPhotos = (
-    years: number[],
-    months: number[],
-    days: number[],
-    dateColumn: DateColumn,
-    orderDirection: OrderDirection,
-    limit: number,
-    offset: number
+export const photoFind = (
+    photoFindParams: PhotoFindParams
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
 
     try {
 
         dispatch({
-            type: PhotoActionType.FETCH_PHOTOS
+            type: PhotoActionType.FIND
         })
 
-        const response = await PhotoService.fetchAll(
-            years, months, days, dateColumn, orderDirection, limit, offset
-        )
+        const response = await PhotoService.find(photoFindParams)
 
         dispatch({
-            type: PhotoActionType.FETCH_PHOTOS_SUCCESS,
+            type: PhotoActionType.FIND_SUCCESS,
             payload: response.data
         })
 
-    } catch (error: any) {
+    } catch (error) {
 
         dispatch({
-            type: PhotoActionType.FETCH_PHOTOS_ERROR,
-            payload: error.response.data.message
+            type: PhotoActionType.FIND_ERROR,
+            payload: getErrors(error)
         })
 
     }
 
 })
 
-export const setPhotoParams = (
-    years: number[],
-    months: number[],
-    days: number[],
-    dateColumn: DateColumn,
-    orderDirection: OrderDirection,
-    limit: number
+export const photoDownload = (
+    id: string
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
 
     try {
 
         dispatch({
-            type: PhotoActionType.SET_PHOTO_PARAMS,
-            payload: {years, months, days, dateColumn, orderDirection, limit}
+            type: PhotoActionType.DOWNLOAD
         })
 
+        const response = await PhotoService.download(id)
+
+        if (!response.data) {
+            return dispatch({
+                type: PhotoActionType.DOWNLOAD_ERROR,
+                payload: [ErrorMessage.FILE_NOTE_FOUND]
+            })
+        }
+
+        const fileBase = response.headers['content-disposition']?.split('"')[1] || id + '.jpg'
+        const link = document.createElement('a')
+
+        link.href = window.URL.createObjectURL(response.data)
+        link.setAttribute('download', fileBase)
+        document.body.appendChild(link)
+        link.click()
+        link.remove()
+
         dispatch({
-            type: PhotoActionType.FETCH_PHOTO_TOTAL
+            type: PhotoActionType.DOWNLOAD_SUCCESS
         })
 
-        const response = await PhotoService.fetchTotal(years, months, days, dateColumn)
+    } catch (error) {
 
         dispatch({
-            type: PhotoActionType.FETCH_PHOTO_TOTAL_SUCCESS,
-            payload: response.data
-        })
-
-    } catch (error: any) {
-
-        dispatch({
-            type: PhotoActionType.FETCH_PHOTO_TOTAL_ERROR,
-            payload: error.response.data.message
+            type: PhotoActionType.DOWNLOAD_ERROR,
+            payload: getErrors(error)
         })
 
     }
 
 })
 
-export const setPhotoPreview = (preview: Photo | null) => ((dispatch: Dispatch<PhotoAction>) => {
+export const photoFindTotal = (
+    photoFindTotalParams: PhotoFindTotalParams
+) => (async (dispatch: Dispatch<PhotoAction>) => {
+
+    try {
+
+        dispatch({
+            type: PhotoActionType.FIND_TOTAL
+        })
+
+        const response = await PhotoService.findTotal(photoFindTotalParams)
+
+        dispatch({
+            type: PhotoActionType.FIND_TOTAL_SUCCESS,
+            payload: response.data
+        })
+
+    } catch (error) {
+
+        dispatch({
+            type: PhotoActionType.FIND_TOTAL_ERROR,
+            payload: getErrors(error)
+        })
+
+    }
+
+})
+
+export const photoFindTotalDate = (
+    dateColumn: DateColumn
+) => (async (dispatch: Dispatch<PhotoAction>) => {
+
+    try {
+
+        dispatch({
+            type: PhotoActionType.FIND_TOTAL_DATE
+        })
+
+        const response = await PhotoService.findTotalDate(dateColumn)
+
+        dispatch({
+            type: PhotoActionType.FIND_TOTAL_DATE_SUCCESS,
+            payload: response.data
+        })
+
+    } catch (error) {
+
+        dispatch({
+            type: PhotoActionType.FIND_TOTAL_DATE_ERROR,
+            payload: getErrors(error)
+        })
+
+    }
+
+})
+
+export const photoSetPreview = (
+    preview: Photo | null
+) => ((dispatch: Dispatch<PhotoAction>) => {
 
     dispatch({
-        type: PhotoActionType.SET_PHOTO_PREVIEW,
+        type: PhotoActionType.SET_PREVIEW,
         payload: preview
     })
 
 })
 
-export const downloadPhoto = (id: string) => (async () => {
+export const photoSetParams = (
+    photoFind: PhotoFind
+) => ((dispatch: Dispatch<PhotoAction>) => {
 
-    const response = await PhotoService.download(id)
-
-    if (!response.data) {
-        return
-    }
-
-    const fileName = response.headers['content-disposition']?.split('"')[1] || id + '.jpg'
-    const url = window.URL.createObjectURL(response.data)
-    const link = document.createElement('a')
-
-    link.href = url
-    link.setAttribute('download', fileName)
-    document.body.appendChild(link)
-    link.click()
-    link.remove()
+    dispatch({
+        type: PhotoActionType.SET_PARAMS,
+        payload: photoFind
+    })
 
 })

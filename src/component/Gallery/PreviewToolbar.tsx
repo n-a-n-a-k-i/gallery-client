@@ -7,15 +7,15 @@ import {useTypedSelector} from "../../hook/use-typed-selector";
 
 const PreviewToolbar: FC = () => {
 
-    const {setPhotoPreview, downloadPhoto} = useAction()
+    const {photoSetPreview, photoDownload} = useAction()
     const {preview} = useTypedSelector(state => state.photo)
 
     const onDownload = () => {
-        if (preview) downloadPhoto(preview.id)
+        if (preview) photoDownload(preview.id)
     }
 
     const onClose = () => {
-        setPhotoPreview(null)
+        photoSetPreview(null)
     }
 
     return (

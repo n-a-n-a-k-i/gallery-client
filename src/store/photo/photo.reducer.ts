@@ -2,13 +2,21 @@ import {DateColumn, OrderDirection, PhotoAction, PhotoActionType, PhotoState} fr
 
 const initialState: PhotoState = {
 
-    items: [],
-    total: null,
+    photos: [],
+    total: 0,
+    totalYears: [],
+    totalMonths: [],
+    totalDays: [],
 
-    isLoading: false,
-    error: null,
+    isFind: false,
+    isCreate: false,
+    isUpdate: false,
+    isRemove: false,
+    isDownload: false,
+    isFindTotal: false,
+    isFindTotalDate: false,
+    errors: [],
 
-    isFinish: false,
     preview: null,
 
     years: [],
@@ -23,59 +31,174 @@ const initialState: PhotoState = {
 export const photoReducer = (state: PhotoState = initialState, action: PhotoAction) => {
     switch (action.type) {
 
-        case PhotoActionType.FETCH_PHOTOS:
+        // Поиск фотографий
+
+        case PhotoActionType.FIND:
             return {
                 ...state,
-                isLoading: true
+                isFind: true,
+                errors: []
             }
-        case PhotoActionType.FETCH_PHOTOS_SUCCESS:
+        case PhotoActionType.FIND_SUCCESS:
             return {
                 ...state,
-                items: [...state.items, ...action.payload],
-                isLoading: false,
-                isFinish: action.payload.length < state.limit
+                photos: [
+                    ...state.photos,
+                    ...action.payload
+                ],
+                isFind: false
             }
-        case PhotoActionType.FETCH_PHOTOS_ERROR:
+        case PhotoActionType.FIND_ERROR:
             return {
                 ...state,
-                isLoading: false,
-                error: action.payload
+                isFind: false,
+                errors: action.payload
             }
 
-        case PhotoActionType.FETCH_PHOTO_TOTAL:
+        // Изменение фотографии
+
+        case PhotoActionType.UPDATE:
             return {
                 ...state,
-                total: null,
-                isLoading: true
+                isUpdate: true,
+                errors: []
             }
-        case PhotoActionType.FETCH_PHOTO_TOTAL_SUCCESS:
+        case PhotoActionType.UPDATE_SUCCESS:
+            return {
+                ...state,
+                photos: [
+                    ...state.photos.map(photo => {
+
+                        if (photo.id !== action.payload.id) {
+                            return photo
+                        }
+
+                        return {
+                            ...photo,
+                            ...action.payload
+                        }
+
+                    })
+                ],
+                isUpdate: false
+            }
+        case PhotoActionType.UPDATE_ERROR:
+            return {
+                ...state,
+                isUpdate: false,
+                errors: action.payload
+            }
+
+        // Удаление фотографий
+
+        case PhotoActionType.REMOVE:
+            return {
+                ...state,
+                isRemove: true,
+                errors: []
+            }
+        case PhotoActionType.REMOVE_SUCCESS:
+            return {
+                ...state,
+                photos: [
+                    ...state.photos.filter(photo => (
+                        !action.payload.find(deleted => (
+                            deleted.id === photo.id
+                        ))
+                    ))
+                ],
+                isRemove: false
+            }
+        case PhotoActionType.REMOVE_ERROR:
+            return {
+                ...state,
+                isRemove: false,
+                errors: action.payload
+            }
+
+        // Скачивание фотографии
+
+        case PhotoActionType.DOWNLOAD:
+            return {
+                ...state,
+                isDownload: true,
+                errors: []
+            }
+        case PhotoActionType.DOWNLOAD_SUCCESS:
+            return {
+                ...state,
+                isDownload: false
+            }
+        case PhotoActionType.DOWNLOAD_ERROR:
+            return {
+                ...state,
+                isDownload: false,
+                errors: action.payload
+            }
+
+        // Поиск количества фотографий
+
+        case PhotoActionType.FIND_TOTAL:
+            return {
+                ...state,
+                isFindTotal: true,
+                errors: []
+            }
+        case PhotoActionType.FIND_TOTAL_SUCCESS:
             return {
                 ...state,
                 total: action.payload,
-                isLoading: false
+                isFindTotal: false
             }
-        case PhotoActionType.FETCH_PHOTO_TOTAL_ERROR:
+        case PhotoActionType.FIND_TOTAL_ERROR:
             return {
                 ...state,
-                isLoading: false,
-                error: action.payload
+                isFindTotal: false,
+                errors: action.payload
             }
 
-        case PhotoActionType.SET_PHOTO_PREVIEW:
+        // Поиск количества фотографий по частям даты
+
+        case PhotoActionType.FIND_TOTAL_DATE:
+            return {
+                ...state,
+                isFindTotalDate: true,
+                errors: []
+            }
+        case PhotoActionType.FIND_TOTAL_DATE_SUCCESS:
+            return {
+                ...state,
+                ...action.payload,
+                isFindTotalDate: false
+            }
+        case PhotoActionType.FIND_TOTAL_DATE_ERROR:
+            return {
+                ...state,
+                isFindTotalDate: false,
+                errors: action.payload
+            }
+
+        // Предпросмотр
+
+        case PhotoActionType.SET_PREVIEW:
             return {
                 ...state,
                 preview: action.payload
             }
 
-        case PhotoActionType.SET_PHOTO_PARAMS:
+        // Установка параметров
+
+        case PhotoActionType.SET_PARAMS:
             return {
                 ...state,
                 items: [],
-                isFinish: false,
                 ...action.payload
             }
 
+        // Состояние по умолчанию
+
         default:
             return state
+
     }
 }

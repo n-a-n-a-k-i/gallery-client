@@ -17,7 +17,7 @@ const Settings: FC = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const theme = useTheme()
-    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+    const isFullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
     const onOpen = () => setIsOpen(true)
     const onClose = () => setIsOpen(false)
@@ -32,7 +32,7 @@ const Settings: FC = () => {
             <Dialog
                 open={isOpen}
                 onClose={onClose}
-                fullScreen={fullScreen}
+                fullScreen={isFullScreen}
                 maxWidth="xs"
                 sx={{
                     '& .MuiDialog-paper': {
