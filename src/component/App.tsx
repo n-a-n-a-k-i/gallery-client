@@ -13,8 +13,8 @@ enum RouteType {
 
 const App: FC = () => {
 
-    const {user, isLoading, errors} = useTypedSelector(state => state.account)
-    const {refresh} = useAction()
+    const {user, isSignIn, isRefresh, isSignOut, errors} = useTypedSelector(state => state.account)
+    const {accountRefresh} = useAction()
     const [isInit, setIsInit] = useState<boolean>(true)
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const App: FC = () => {
         (async () => {
 
             setIsInit(false)
-            await refresh()
+            await accountRefresh()
 
         })()
 
@@ -32,8 +32,16 @@ const App: FC = () => {
         return <FullScreenLoader messages={'Инициализация приложения'}/>
     }
 
-    if (isLoading) {
+    if (isSignIn) {
+        return <FullScreenLoader messages={'Вход в учётную запись'}/>
+    }
+
+    if (isRefresh) {
         return <FullScreenLoader messages={'Проверка учётной записи'}/>
+    }
+
+    if (isSignOut) {
+        return <FullScreenLoader messages={'Выход из учётной записи'}/>
     }
 
     if (!user) {

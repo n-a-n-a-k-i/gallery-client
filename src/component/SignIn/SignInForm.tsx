@@ -15,7 +15,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const SignInForm: FC = () => {
 
-    const {signIn} = useAction()
+    const {accountSignIn} = useAction()
 
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -24,7 +24,7 @@ const SignInForm: FC = () => {
     return (
         <Box
             component="form"
-            onSubmit={() => signIn(username, password)}
+            onSubmit={() => accountSignIn({username, password})}
             noValidate
         >
             <TextField

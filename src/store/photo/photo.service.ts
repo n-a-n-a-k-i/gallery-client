@@ -3,6 +3,16 @@ import galleryApi from "../../api/gallery.api";
 
 export default class PhotoService {
 
+    /**
+     * Поиск фотографий
+     * @param years
+     * @param months
+     * @param days
+     * @param dateColumn
+     * @param orderDirection
+     * @param limit
+     * @param offset
+     */
     static find(
         {years, months, days, dateColumn, orderDirection, limit, offset}: PhotoFindParams
     ) {
@@ -19,12 +29,23 @@ export default class PhotoService {
         })
     }
 
+    /**
+     * Скачивание фотографии
+     * @param id
+     */
     static download(id: string) {
         return galleryApi.get<Blob>(`/photo/download/${id}`, {
             responseType: 'blob'
         })
     }
 
+    /**
+     * Поиск количества фотографий
+     * @param years
+     * @param months
+     * @param days
+     * @param dateColumn
+     */
     static findTotal(
         {years, months, days, dateColumn}: PhotoFindTotalParams
     ) {
@@ -38,6 +59,10 @@ export default class PhotoService {
         })
     }
 
+    /**
+     * Поиск количества фотографий по частям даты
+     * @param dateColumn
+     */
     static findTotalDate(dateColumn: DateColumn) {
         return galleryApi.get<TotalDate>(`/photo/total-date/${dateColumn}`)
     }

@@ -11,6 +11,10 @@ import {
 import PhotoService from "./photo.service";
 import {ErrorMessage, getErrors} from "../../utility/error-response";
 
+/**
+ * Поиск фотографий
+ * @param photoFindParams
+ */
 export const photoFind = (
     photoFindParams: PhotoFindParams
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
@@ -39,6 +43,10 @@ export const photoFind = (
 
 })
 
+/**
+ * Скачивание фотографии
+ * @param id
+ */
 export const photoDownload = (
     id: string
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
@@ -82,6 +90,10 @@ export const photoDownload = (
 
 })
 
+/**
+ * Поиск количества фотографий
+ * @param photoFindTotalParams
+ */
 export const photoFindTotal = (
     photoFindTotalParams: PhotoFindTotalParams
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
@@ -110,6 +122,10 @@ export const photoFindTotal = (
 
 })
 
+/**
+ * Поиск количества фотографий по частям даты
+ * @param dateColumn
+ */
 export const photoFindTotalDate = (
     dateColumn: DateColumn
 ) => (async (dispatch: Dispatch<PhotoAction>) => {
@@ -138,6 +154,10 @@ export const photoFindTotalDate = (
 
 })
 
+/**
+ * Установка фотографии для предпросмотра
+ * @param preview
+ */
 export const photoSetPreview = (
     preview: Photo | null
 ) => ((dispatch: Dispatch<PhotoAction>) => {
@@ -149,6 +169,10 @@ export const photoSetPreview = (
 
 })
 
+/**
+ * Установка параметров
+ * @param photoFind
+ */
 export const photoSetParams = (
     photoFind: PhotoFind
 ) => ((dispatch: Dispatch<PhotoAction>) => {

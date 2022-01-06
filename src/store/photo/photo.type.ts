@@ -125,109 +125,109 @@ export enum PhotoActionType {
 
 // Поиск фотографий
 
-interface PhotoFindAction {
+interface PhotoActionFind {
     type: PhotoActionType.FIND
 }
 
-interface PhotoFindSuccessAction {
+interface PhotoActionFindSuccess {
     type: PhotoActionType.FIND_SUCCESS
     payload: Photo[]
 }
 
-interface PhotoFindErrorAction {
+interface PhotoActionFindError {
     type: PhotoActionType.FIND_ERROR
     payload: string[]
 }
 
 // Изменение фотографии
 
-interface PhotoUpdateAction {
+interface PhotoActionUpdate {
     type: PhotoActionType.UPDATE
 }
 
-interface PhotoUpdateSuccessAction {
+interface PhotoActionUpdateSuccess {
     type: PhotoActionType.UPDATE_SUCCESS
     payload: Photo
 }
 
-interface PhotoUpdateErrorAction {
+interface PhotoActionUpdateError {
     type: PhotoActionType.UPDATE_ERROR
     payload: string[]
 }
 
 // Удаление фотографий
 
-interface PhotoRemoveAction {
+interface PhotoActionRemove {
     type: PhotoActionType.REMOVE
 }
 
-interface PhotoRemoveSuccessAction {
+interface PhotoActionRemoveSuccess {
     type: PhotoActionType.REMOVE_SUCCESS
     payload: Photo[]
 }
 
-interface PhotoRemoveErrorAction {
+interface PhotoActionRemoveError {
     type: PhotoActionType.REMOVE_ERROR
     payload: string[]
 }
 
 // Скачивание фотографии
 
-interface PhotoDownloadAction {
+interface PhotoActionDownload {
     type: PhotoActionType.DOWNLOAD
 }
 
-interface PhotoDownloadSuccessAction {
+interface PhotoActionDownloadSuccess {
     type: PhotoActionType.DOWNLOAD_SUCCESS
 }
 
-interface PhotoDownloadErrorAction {
+interface PhotoActionDownloadError {
     type: PhotoActionType.DOWNLOAD_ERROR
     payload: string[]
 }
 
 // Поиск количества фотографий
 
-interface PhotoFindTotalAction {
+interface PhotoActionFindTotal {
     type: PhotoActionType.FIND_TOTAL
 }
 
-interface PhotoFindTotalSuccessAction {
+interface PhotoActionFindTotalSuccess {
     type: PhotoActionType.FIND_TOTAL_SUCCESS,
     payload: number
 }
 
-interface PhotoFindTotalErrorAction {
+interface PhotoActionFindTotalError {
     type: PhotoActionType.FIND_TOTAL_ERROR,
     payload: string[]
 }
 
 // Поиск количества фотографий по частям даты
 
-interface PhotoFindTotalDateAction {
+interface PhotoActionFindTotalDate {
     type: PhotoActionType.FIND_TOTAL_DATE
 }
 
-interface PhotoFindTotalDateSuccessAction {
+interface PhotoActionFindTotalDateSuccess {
     type: PhotoActionType.FIND_TOTAL_DATE_SUCCESS,
     payload: TotalDate
 }
 
-interface PhotoFindTotalDateErrorAction {
+interface PhotoActionFindTotalDateError {
     type: PhotoActionType.FIND_TOTAL_DATE_ERROR,
     payload: string[]
 }
 
-// Предпросмотр фотографии
+// Установка фотографии для предпросмотра
 
-interface PhotoSetPreviewAction {
+interface PhotoActionSetPreview {
     type: PhotoActionType.SET_PREVIEW,
     payload: Photo | null
 }
 
 // Установка параметров
 
-interface PhotoSetParamsAction {
+interface PhotoActionSetParams {
     type: PhotoActionType.SET_PARAMS
     payload: PhotoFind
 }
@@ -236,32 +236,32 @@ interface PhotoSetParamsAction {
 
 export type PhotoAction = (
 
-    PhotoFindAction
-    | PhotoFindSuccessAction
-    | PhotoFindErrorAction
+    PhotoActionFind
+    | PhotoActionFindSuccess
+    | PhotoActionFindError
 
-    | PhotoUpdateAction
-    | PhotoUpdateSuccessAction
-    | PhotoUpdateErrorAction
+    | PhotoActionUpdate
+    | PhotoActionUpdateSuccess
+    | PhotoActionUpdateError
 
-    | PhotoRemoveAction
-    | PhotoRemoveSuccessAction
-    | PhotoRemoveErrorAction
+    | PhotoActionRemove
+    | PhotoActionRemoveSuccess
+    | PhotoActionRemoveError
 
-    | PhotoDownloadAction
-    | PhotoDownloadSuccessAction
-    | PhotoDownloadErrorAction
+    | PhotoActionDownload
+    | PhotoActionDownloadSuccess
+    | PhotoActionDownloadError
 
-    | PhotoFindTotalAction
-    | PhotoFindTotalSuccessAction
-    | PhotoFindTotalErrorAction
+    | PhotoActionFindTotal
+    | PhotoActionFindTotalSuccess
+    | PhotoActionFindTotalError
 
-    | PhotoFindTotalDateAction
-    | PhotoFindTotalDateSuccessAction
-    | PhotoFindTotalDateErrorAction
+    | PhotoActionFindTotalDate
+    | PhotoActionFindTotalDateSuccess
+    | PhotoActionFindTotalDateError
 
-    | PhotoSetPreviewAction
+    | PhotoActionSetPreview
 
-    | PhotoSetParamsAction
+    | PhotoActionSetParams
 
 )

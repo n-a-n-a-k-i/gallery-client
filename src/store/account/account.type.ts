@@ -1,13 +1,35 @@
-interface Payload {
+// Пользователь
+
+export interface User {
     id: string
     permissions: string[]
 }
 
-export interface AccountState {
-    user: null | Payload
-    isLoading: boolean
-    errors: string[]
+// Параметры для входа
+
+export interface AccountSignIn {
+    username: string
+    password: string
 }
+
+export interface AccountAccessToken {
+    accessToken: string
+}
+
+// Состояние
+
+export interface AccountState {
+
+    user: null | User
+
+    isSignIn: boolean
+    isRefresh: boolean
+    isSignOut: boolean
+    errors: string[]
+
+}
+
+// Типы действий
 
 export enum AccountActionType {
 
@@ -25,13 +47,15 @@ export enum AccountActionType {
 
 }
 
+// Вход
+
 interface AccountActionSignIn {
     type: AccountActionType.SIGN_IN
 }
 
 interface AccountActionSignInSuccess {
     type: AccountActionType.SIGN_IN_SUCCESS
-    payload: Payload
+    payload: User
 }
 
 interface AccountActionSignInError {
@@ -39,19 +63,23 @@ interface AccountActionSignInError {
     payload: string[]
 }
 
+// Обновление токенов
+
 interface AccountActionRefresh {
     type: AccountActionType.REFRESH
 }
 
 interface AccountActionRefreshSuccess {
     type: AccountActionType.REFRESH_SUCCESS
-    payload: Payload
+    payload: User
 }
 
 interface AccountActionRefreshError {
     type: AccountActionType.REFRESH_ERROR
     payload: string[]
 }
+
+// Выход
 
 interface AccountActionSignOut {
     type: AccountActionType.SIGN_OUT
@@ -66,14 +94,20 @@ interface AccountActionSignOutError {
     payload: string[]
 }
 
+// Действия
+
 export type AccountAction = (
+
     AccountActionSignIn
     | AccountActionSignInSuccess
     | AccountActionSignInError
+
     | AccountActionRefresh
     | AccountActionRefreshSuccess
     | AccountActionRefreshError
+
     | AccountActionSignOut
     | AccountActionSignOutSuccess
     | AccountActionSignOutError
+
 )

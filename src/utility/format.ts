@@ -1,3 +1,8 @@
+/**
+ * Формат числа
+ * @param number
+ * @param length
+ */
 export const formatNumber = (number: number, length: number): string => {
 
     let string = number.toString()
@@ -8,6 +13,11 @@ export const formatNumber = (number: number, length: number): string => {
 
 }
 
+/**
+ * Формат даты
+ * @param date
+ * @param format
+ */
 export const formatDate = (date: Date | string, format: string): string => {
 
     if (typeof date === 'string') {

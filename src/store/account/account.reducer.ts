@@ -1,69 +1,86 @@
 import {AccountAction, AccountActionType, AccountState} from "./account.type";
 
 const initialState: AccountState = {
+
     user: null,
-    isLoading: false,
+
+    isSignIn: false,
+    isRefresh: false,
+    isSignOut: false,
     errors: []
+
 }
 
 export const accountReducer = (state = initialState, action: AccountAction): AccountState => {
     switch (action.type) {
 
+        // Вход
+
         case AccountActionType.SIGN_IN:
             return {
                 ...state,
-                isLoading: true
+                isSignIn: true,
+                errors: []
             }
         case AccountActionType.SIGN_IN_SUCCESS:
             return {
                 ...state,
                 user: action.payload,
-                isLoading: false
+                isSignIn: false
             }
         case AccountActionType.SIGN_IN_ERROR:
             return {
                 ...state,
-                isLoading: false,
+                isSignIn: false,
                 errors: action.payload
             }
+
+        // Обновление токенов
 
         case AccountActionType.REFRESH:
             return {
                 ...state,
-                isLoading: true
+                isRefresh: true,
+                errors: []
             }
         case AccountActionType.REFRESH_SUCCESS:
             return {
                 ...state,
                 user: action.payload,
-                isLoading: false
+                isRefresh: false
             }
         case AccountActionType.REFRESH_ERROR:
             return {
                 ...state,
-                isLoading: false,
+                isRefresh: false,
                 errors: action.payload
             }
+
+        // Выход
 
         case AccountActionType.SIGN_OUT:
             return {
                 ...state,
-                isLoading: true
+                isSignOut: true,
+                errors: []
             }
         case AccountActionType.SIGN_OUT_SUCCESS:
             return {
                 ...state,
                 user: null,
-                isLoading: false
+                isSignOut: false
             }
         case AccountActionType.SIGN_OUT_ERROR:
             return {
                 ...state,
-                isLoading: false,
+                isSignOut: false,
                 errors: action.payload
             }
 
+        // Состояние по умолчанию
+
         default:
             return state
+
     }
 }

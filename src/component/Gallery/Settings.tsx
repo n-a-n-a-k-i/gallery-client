@@ -13,7 +13,7 @@ import {useAction} from "../../hook/use-action";
 
 const Settings: FC = () => {
 
-    const {signOut} = useAction()
+    const {accountSignOut} = useAction()
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const theme = useTheme()
@@ -54,7 +54,7 @@ const Settings: FC = () => {
                             disablePadding
                         >
                             <ListItemButton
-                                onClick={() => signOut()}
+                                onClick={() => accountSignOut()}
                             >
                                 <ListItemIcon>
                                     <LogoutIcon/>
