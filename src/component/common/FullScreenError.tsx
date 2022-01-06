@@ -1,7 +1,6 @@
 import React, {FC} from 'react';
 import {Avatar, Box, Typography} from "@mui/material";
 import ErrorIcon from '@mui/icons-material/Error';
-import {red} from "@mui/material/colors";
 
 interface FullScreenErrorProps {
     title?: string
@@ -22,7 +21,7 @@ const FullScreenError: FC<FullScreenErrorProps> = ({title = 'Ошибка', mess
         >
             <Avatar
                 sx={{
-                    bgcolor: red[500]
+                    bgcolor: 'error.main'
                 }}
             >
                 <ErrorIcon/>

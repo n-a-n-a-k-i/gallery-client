@@ -1,7 +1,10 @@
 import React, {FC} from 'react';
-import {AppBar, Avatar, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, Avatar, CircularProgress, IconButton, Toolbar, Typography} from "@mui/material";
+import {useTypedSelector} from "../../hook/use-typed-selector";
 
-const GalleryHeader: FC = () => {
+const GalleryTop: FC = () => {
+
+    const {total, isFindTotal} = useTypedSelector(state => state.photo)
 
     return (
         <AppBar
@@ -26,10 +29,19 @@ const GalleryHeader: FC = () => {
                 >
                     Галерея
                 </Typography>
+                {isFindTotal ? (
+                    <CircularProgress/>
+                ) : (
+                    <Typography
+                        variant="h6"
+                    >
+                        {total} шт
+                    </Typography>
+                )}
             </Toolbar>
         </AppBar>
     )
 
 }
 
-export default GalleryHeader
+export default GalleryTop

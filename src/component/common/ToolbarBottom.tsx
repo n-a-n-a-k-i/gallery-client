@@ -1,31 +1,30 @@
 import React, {FC} from 'react';
 import {Stack} from "@mui/material";
-import Settings from "./Settings";
 
-const GalleryToolbar: FC = () => {
+const ToolbarBottom: FC = ({children}) => {
 
     return (
         <Stack
-            direction="row"
-            spacing={1}
+            mb={1}
             position="fixed"
             right={0}
             bottom={0}
             left={0}
-            zIndex={1}
+            zIndex={theme => theme.zIndex.speedDial}
+            direction="row"
             justifyContent="center"
-            pb={1}
+            spacing={1}
             sx={{
                 pointerEvents: 'none',
-                '& > *': {
+                '& button': {
                     pointerEvents: 'auto'
                 }
             }}
         >
-            <Settings/>
+            {children}
         </Stack>
     )
 
 }
 
-export default GalleryToolbar
+export default ToolbarBottom

@@ -8,12 +8,14 @@ import App from './component/App';
 import {Provider} from "react-redux";
 import {store} from "./store";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
-import {grey} from "@mui/material/colors";
 
-const theme = createTheme({
+let theme = createTheme({
     palette: {
         mode: 'dark'
-    },
+    }
+})
+
+theme = createTheme(theme,{
     components: {
         MuiCssBaseline: {
             styleOverrides: {
@@ -28,13 +30,13 @@ const theme = createTheme({
                     borderRadius: 8,
                     border: '4px solid transparent',
                     backgroundClip: 'content-box',
-                    backgroundColor: grey[700]
+                    backgroundColor: theme.palette.action.hover
                 },
                 'body::-webkit-scrollbar-thumb:hover': {
-                    backgroundColor: grey[600]
+                    backgroundColor: theme.palette.action.selected
                 },
                 'body::-webkit-scrollbar-thumb:active': {
-                    backgroundColor: grey[500]
+                    backgroundColor: theme.palette.action.disabled
                 }
             }
         }
