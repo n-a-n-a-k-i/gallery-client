@@ -20,7 +20,7 @@ const GalleryGridPhoto: FC<PhotoItemProps> = ({photo}) => {
         >
             <img
                 src={`${process.env.REACT_APP_SERVER_URL}/photo/thumbnail/${photo.id}`}
-                alt={photo.id}
+                alt=""
                 loading="lazy"
             />
         </ImageListItem>

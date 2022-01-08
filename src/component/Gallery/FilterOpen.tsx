@@ -1,9 +1,12 @@
 import React, {FC, useState} from 'react';
+import {useTypedSelector} from "../../hook/use-typed-selector";
 import {Fab} from "@mui/material";
-import SettingsIcon from '@mui/icons-material/Settings'
-import Settings from "./Settings";
+import FilterIcon from '@mui/icons-material/Filter';
+import Filter from "./Filter";
 
-const SettingsOpen: FC = () => {
+const FilterOpen: FC = () => {
+
+    const {isFindTotalDate} = useTypedSelector(state => state.photo)
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -11,10 +14,11 @@ const SettingsOpen: FC = () => {
         <>
             <Fab
                 onClick={() => setIsOpen(true)}
+                disabled={isFindTotalDate}
             >
-                <SettingsIcon/>
+                <FilterIcon/>
             </Fab>
-            <Settings
+            <Filter
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
             />
@@ -23,4 +27,4 @@ const SettingsOpen: FC = () => {
 
 }
 
-export default SettingsOpen
+export default FilterOpen

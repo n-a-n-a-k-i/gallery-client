@@ -9,9 +9,7 @@ import {
     ListItem,
     ListItemButton,
     ListItemIcon,
-    ListItemText,
-    useMediaQuery,
-    useTheme
+    ListItemText
 } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {useAction} from "../../hook/use-action";
@@ -25,14 +23,14 @@ const Settings: FC<SettingsProps> = ({isOpen, onClose}) => {
 
     const {accountSignOut} = useAction()
 
-    const theme = useTheme()
-    const isFullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+    // const theme = useTheme()
+    // const isFullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
     return (
         <Dialog
             open={isOpen}
             onClose={onClose}
-            fullScreen={isFullScreen}
+            // fullScreen={isFullScreen}
             maxWidth="xs"
             sx={{
                 '& .MuiDialog-paper': {

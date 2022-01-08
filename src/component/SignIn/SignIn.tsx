@@ -24,7 +24,6 @@ const SignIn: FC = () => {
                 >
                     <Avatar
                         src="logo40.png"
-                        alt="logo40.png"
                     />
                 </IconButton>
                 <Typography
