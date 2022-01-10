@@ -48,29 +48,25 @@ const Filter: FC<SearchProps> = ({isOpen, onClose}) => {
                 <FilterYear/>
                 <Divider
                     sx={{
-                        mt: 2,
-                        mb: 4
+                        my: 4
                     }}
                 />
                 <FilterMonth/>
                 <Divider
                     sx={{
-                        mt: 2,
-                        mb: 4
+                        my: 4
                     }}
                 />
                 <FilterDay/>
                 <Divider
                     sx={{
-                        mt: 2,
-                        mb: 4
+                        my: 4
                     }}
                 />
                 <FilterOrderDirection/>
                 <Divider
                     sx={{
-                        mt: 2,
-                        mb: 4
+                        my: 4
                     }}
                 />
                 <FilterDateColumn/>

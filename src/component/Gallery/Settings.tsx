@@ -23,14 +23,10 @@ const Settings: FC<SettingsProps> = ({isOpen, onClose}) => {
 
     const {accountSignOut} = useAction()
 
-    // const theme = useTheme()
-    // const isFullScreen = useMediaQuery(theme.breakpoints.down('sm'))
-
     return (
         <Dialog
             open={isOpen}
             onClose={onClose}
-            // fullScreen={isFullScreen}
             maxWidth="xs"
             sx={{
                 '& .MuiDialog-paper': {
