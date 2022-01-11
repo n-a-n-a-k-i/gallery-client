@@ -1,17 +1,27 @@
-import React, {FC} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import {Box, FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioGroup} from "@mui/material";
 import {DateColumn} from "../../store/photo/photo.type";
 
-const FilterDateColumn: FC = () => {
+interface FilterDateColumnProps {
+    dateColumn: DateColumn
+    setDateColumn: (dateColumn: DateColumn) => void
+}
+
+const FilterDateColumn: FC<FilterDateColumnProps> = ({dateColumn, setDateColumn}) => {
 
     return (
-        <FormControl>
+        <FormControl
+            fullWidth
+        >
             <FormLabel>
                 Параметр даты
             </FormLabel>
             <RadioGroup
                 name="date-column"
-                defaultValue={DateColumn.date}
+                value={dateColumn}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => setDateColumn(
+                    event.target.value as DateColumn
+                )}
             >
                 <FormControlLabel
                     label="По умолчанию"

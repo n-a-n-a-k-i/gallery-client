@@ -1,17 +1,21 @@
 import React, {FC} from 'react';
 import {useTypedSelector} from "../../hook/use-typed-selector";
-import {FormControl, FormLabel, Grid, ToggleButton, Typography, useMediaQuery, useTheme} from "@mui/material";
+import {FormControl, FormLabel, Grid, ToggleButton, Typography} from "@mui/material";
 import {MONTH_NAME} from "../../utility/format";
 
-const FilterMonth: FC = () => {
+interface FilterMonthProps {
+    months: number[]
+    setMonths: (month: number) => void
+}
+
+const FilterMonth: FC<FilterMonthProps> = ({months, setMonths}) => {
 
     const {totalMonths} = useTypedSelector(state => state.photo)
 
-    const theme = useTheme()
-    const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
-
     return (
-        <FormControl>
+        <FormControl
+            fullWidth
+        >
             <FormLabel>
                 Месяц
             </FormLabel>
@@ -20,42 +24,35 @@ const FilterMonth: FC = () => {
                 spacing={1}
                 mt={1}
             >
-                {totalMonths.map(totalMonth => {
-
-                    const month: string = MONTH_NAME[totalMonth.value - 1]
-
-                    return (
-                        <Grid
-                            item
-                            key={totalMonth.value}
-                            xs={4}
-                            sm={3}
-                            md={2}
+                {totalMonths.map(totalMonth => (
+                    <Grid
+                        item
+                        key={totalMonth.value}
+                        xs={3}
+                        sm={2}
+                        md={1}
+                    >
+                        <ToggleButton
+                            value={totalMonth.value}
+                            fullWidth
+                            sx={{
+                                flexDirection: 'column'
+                            }}
+                            selected={months.includes(totalMonth.value)}
+                            onChange={() => setMonths(totalMonth.value)}
                         >
-                            <ToggleButton
-                                value={totalMonth.value}
-                                fullWidth
-                                sx={{
-                                    flexDirection: 'column'
-                                }}
+                            <Typography>
+                                {MONTH_NAME[totalMonth.value - 1].slice(0, 3)}
+                            </Typography>
+                            <Typography
+                                variant="caption"
+                                color="secondary"
                             >
-                                <Typography
-                                    width="100%"
-                                    overflow="hidden"
-                                >
-                                    {isSmall ? month.slice(0, 3) : month}
-                                </Typography>
-                                <Typography
-                                    variant="caption"
-                                    color="secondary"
-                                >
-                                    {totalMonth.total}
-                                </Typography>
-                            </ToggleButton>
-                        </Grid>
-                    )
-
-                })}
+                                {totalMonth.total}
+                            </Typography>
+                        </ToggleButton>
+                    </Grid>
+                ))}
             </Grid>
         </FormControl>
     )

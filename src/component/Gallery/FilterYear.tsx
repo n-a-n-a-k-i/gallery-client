@@ -2,12 +2,19 @@ import React, {FC} from 'react';
 import {useTypedSelector} from "../../hook/use-typed-selector";
 import {FormControl, FormLabel, Grid, ToggleButton, Typography} from "@mui/material";
 
-const FilterYear: FC = () => {
+interface FilterYearProps {
+    years: number[]
+    setYears: (year: number) => void
+}
+
+const FilterYear: FC<FilterYearProps> = ({years, setYears}) => {
 
     const {totalYears} = useTypedSelector(state => state.photo)
 
     return (
-        <FormControl>
+        <FormControl
+            fullWidth
+        >
             <FormLabel>
                 Год
             </FormLabel>
@@ -20,9 +27,9 @@ const FilterYear: FC = () => {
                     <Grid
                         item
                         key={totalYear.value}
-                        xs={4}
-                        sm={3}
-                        md={2}
+                        xs={3}
+                        sm={2}
+                        md={1}
                     >
                         <ToggleButton
                             value={totalYear.value}
@@ -30,11 +37,10 @@ const FilterYear: FC = () => {
                             sx={{
                                 flexDirection: 'column'
                             }}
+                            selected={years.includes(totalYear.value)}
+                            onChange={() => setYears(totalYear.value)}
                         >
-                            <Typography
-                                width="100%"
-                                overflow="hidden"
-                            >
+                            <Typography>
                                 {totalYear.value}
                             </Typography>
                             <Typography

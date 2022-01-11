@@ -2,12 +2,19 @@ import React, {FC} from 'react';
 import {useTypedSelector} from "../../hook/use-typed-selector";
 import {FormControl, FormLabel, Grid, ToggleButton, Typography} from "@mui/material";
 
-const FilterDay: FC = () => {
+interface FilterDayProps {
+    days: number[]
+    setDays: (day: number) => void
+}
+
+const FilterDay: FC<FilterDayProps> = ({days, setDays}) => {
 
     const {totalDays} = useTypedSelector(state => state.photo)
 
     return (
-        <FormControl>
+        <FormControl
+            fullWidth
+        >
             <FormLabel>
                 День
             </FormLabel>
@@ -20,9 +27,9 @@ const FilterDay: FC = () => {
                     <Grid
                         item
                         key={totalDay.value}
-                        xs={4}
-                        sm={3}
-                        md={2}
+                        xs={3}
+                        sm={2}
+                        md={1}
                     >
                         <ToggleButton
                             value={totalDay.value}
@@ -30,11 +37,10 @@ const FilterDay: FC = () => {
                             sx={{
                                 flexDirection: 'column'
                             }}
+                            selected={days.includes(totalDay.value)}
+                            onChange={() => setDays(totalDay.value)}
                         >
-                            <Typography
-                                width="100%"
-                                overflow="hidden"
-                            >
+                            <Typography>
                                 {totalDay.value}
                             </Typography>
                             <Typography

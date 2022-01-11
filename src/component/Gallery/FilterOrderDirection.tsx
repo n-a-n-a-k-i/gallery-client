@@ -1,19 +1,28 @@
-import React, {FC} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 import {OrderDirection} from "../../store/photo/photo.type";
 
-const FilterOrderDirection: FC = () => {
+interface FilterOrderDirectionProps {
+    orderDirection: OrderDirection
+    setOrderDirection: (orderDirection: OrderDirection) => void
+}
+
+const FilterOrderDirection: FC<FilterOrderDirectionProps> = ({orderDirection, setOrderDirection}) => {
 
     return (
-        <FormControl>
+        <FormControl
+            fullWidth
+        >
             <FormLabel>
                 Порядок сортировки
             </FormLabel>
             <RadioGroup
                 row
                 name="order-direction"
-                defaultValue={OrderDirection.DESC}
-
+                value={orderDirection}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => setOrderDirection(
+                    event.target.value as OrderDirection
+                )}
             >
                 <FormControlLabel
                     label="По возрастанию"

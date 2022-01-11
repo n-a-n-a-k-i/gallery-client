@@ -191,7 +191,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
         case PhotoActionType.SET_PARAMS:
             return {
                 ...state,
-                items: [],
+                photos: [],
                 ...action.payload
             }
 

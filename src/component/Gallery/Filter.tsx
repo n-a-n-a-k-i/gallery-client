@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useAction} from "../../hook/use-action";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider} from "@mui/material";
 import FilterDateColumn from "./FilterDateColumn";
@@ -7,6 +7,7 @@ import FilterMonth from "./FilterMonth";
 import FilterYear from "./FilterYear";
 import FilterDay from "./FilterDay";
 import {useTypedSelector} from "../../hook/use-typed-selector";
+import {DateColumn, OrderDirection} from "../../store/photo/photo.type";
 
 interface SearchProps {
     isOpen: boolean
@@ -15,8 +16,13 @@ interface SearchProps {
 
 const Filter: FC<SearchProps> = ({isOpen, onClose}) => {
 
-    const {dateColumn} = useTypedSelector(state => state.photo)
-    const {photoFindTotalDate} = useAction()
+    const {years, months, days, orderDirection, dateColumn, limit} = useTypedSelector(state => state.photo)
+    const {photoFindTotal, photoFindTotalDate, photoSetParams} = useAction()
+    const [selectedYears, setSelectedYears] = useState<number[]>(years)
+    const [selectedMonths, setSelectedMonths] = useState<number[]>(months)
+    const [selectedDays, setSelectedDays] = useState<number[]>(days)
+    const [selectedOrderDirection, setSelectedOrderDirection] = useState<OrderDirection>(orderDirection)
+    const [selectedDateColumn, setSelectedDateColumn] = useState<DateColumn>(dateColumn)
 
     useEffect(() => {
 
@@ -26,7 +32,7 @@ const Filter: FC<SearchProps> = ({isOpen, onClose}) => {
 
         })()
 
-    }, [])
+    }, [dateColumn])
 
     return (
         <Dialog
@@ -45,31 +51,59 @@ const Filter: FC<SearchProps> = ({isOpen, onClose}) => {
             <DialogContent
                 dividers
             >
-                <FilterYear/>
+                <FilterYear
+                    years={selectedYears}
+                    setYears={(year: number) => setSelectedYears(selectedYears.includes(year)
+                        ? selectedYears.filter(value => value !== year)
+                        : [...selectedYears, year]
+                    )}
+                />
                 <Divider
                     sx={{
                         my: 4
                     }}
                 />
-                <FilterMonth/>
+                <FilterMonth
+                    months={selectedMonths}
+                    setMonths={(month: number) => setSelectedMonths(selectedMonths.includes(month)
+                        ? selectedMonths.filter(value => value !== month)
+                        : [...selectedMonths, month]
+                    )}
+                />
                 <Divider
                     sx={{
                         my: 4
                     }}
                 />
-                <FilterDay/>
+                <FilterDay
+                    days={selectedDays}
+                    setDays={(day: number) => setSelectedDays(selectedDays.includes(day)
+                        ? selectedDays.filter(value => value !== day)
+                        : [...selectedDays, day]
+                    )}
+                />
                 <Divider
                     sx={{
                         my: 4
                     }}
                 />
-                <FilterOrderDirection/>
+                <FilterOrderDirection
+                    orderDirection={selectedOrderDirection}
+                    setOrderDirection={(value: OrderDirection) => setSelectedOrderDirection(
+                        value
+                    )}
+                />
                 <Divider
                     sx={{
                         my: 4
                     }}
                 />
-                <FilterDateColumn/>
+                <FilterDateColumn
+                    dateColumn={selectedDateColumn}
+                    setDateColumn={(value: DateColumn) => setSelectedDateColumn(
+                        value
+                    )}
+                />
             </DialogContent>
             <DialogActions>
                 <Button
@@ -79,7 +113,19 @@ const Filter: FC<SearchProps> = ({isOpen, onClose}) => {
                 </Button>
                 <Button
                     autoFocus
-                    onClick={onClose}
+                    onClick={async () => {
+
+                        const years = selectedYears
+                        const months = selectedMonths
+                        const days = selectedDays
+                        const dateColumn = selectedDateColumn
+                        const orderDirection = selectedOrderDirection
+
+                        photoSetParams({years, months, days, dateColumn, orderDirection, limit})
+                        await photoFindTotal({years, months, days, dateColumn})
+                        onClose()
+
+                    }}
                 >
                     Применить
                 </Button>

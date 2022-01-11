@@ -9,12 +9,11 @@ import {getCols, getLimit, pushDivider} from "../../utility/image-list";
 const GalleryGrid: FC = () => {
 
     const {
-        photos, total, years, months, days, dateColumn, orderDirection, limit
+        photos, total, years, months, days, dateColumn, orderDirection, limit,
+        isFindTotal
     } = useTypedSelector(state => state.photo)
 
     const {photoSetParams, photoFind, photoFindTotal} = useAction()
-
-    const [isFinish, setIsFinish] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     /**
@@ -34,16 +33,12 @@ const GalleryGrid: FC = () => {
 
             const limit = getLimit()
 
-            await photoSetParams({years, months, days, dateColumn, orderDirection, limit})
+            photoSetParams({years, months, days, dateColumn, orderDirection, limit})
             await photoFindTotal({years, months, days, dateColumn})
 
         })()
 
         const onScroll = () => {
-
-            if (isFinish || isLoading) {
-                return
-            }
 
             const {scrollHeight, scrollTop, clientHeight} = document.documentElement
 
@@ -68,13 +63,13 @@ const GalleryGrid: FC = () => {
      */
     useEffect(() => {
 
-        if (total === 0) {
+        if (isFindTotal || !(photos.length < total)) {
             return
         }
 
         setIsLoading(true)
 
-    }, [total])
+    }, [isFindTotal])
 
     /**
      * Загрузка:
@@ -92,13 +87,12 @@ const GalleryGrid: FC = () => {
                 return
             }
 
-            const offset = photos.length
-
-            if (!(limit + offset < total)) {
-                setIsFinish(true)
+            if (photos.length < total) {
+                await photoFind({
+                    years, months, days, dateColumn, orderDirection, limit, offset: photos.length
+                })
             }
 
-            await photoFind({years, months, days, dateColumn, orderDirection, limit, offset})
             setIsLoading(false)
 
         })()
