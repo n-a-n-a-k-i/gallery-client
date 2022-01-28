@@ -1,12 +1,12 @@
 import React, {FC} from 'react';
 import {Box, CircularProgress, Typography} from "@mui/material";
 
-interface FullScreenErrorProps {
+interface FullScreenLoaderProps {
     title?: string
     messages?: string | string[]
 }
 
-const FullScreenLoader: FC<FullScreenErrorProps> = ({title = 'Загрузка', messages}) => {
+const FullScreenLoader: FC<FullScreenLoaderProps> = ({title = 'Загрузка', messages}) => {
 
     if (typeof messages === 'string') messages = [messages]
 
