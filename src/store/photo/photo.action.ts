@@ -1,13 +1,5 @@
 import {Dispatch} from "redux";
-import {
-    DateColumn,
-    Photo,
-    PhotoAction,
-    PhotoActionType,
-    PhotoFind,
-    PhotoFindParams,
-    PhotoFindTotalParams
-} from "./photo.type";
+import {DateColumn, PhotoAction, PhotoActionType, PhotoFind, PhotoFindParams, PhotoFindTotalParams} from "./photo.type";
 import PhotoService from "./photo.service";
 import {ErrorMessage, getErrors} from "../../utility/error-response";
 
@@ -155,21 +147,6 @@ export const photoFindTotalDate = (
 })
 
 /**
- * Установка фотографии для предпросмотра
- * @param preview
- */
-export const photoSetPreview = (
-    preview: Photo | null
-) => ((dispatch: Dispatch<PhotoAction>) => {
-
-    dispatch({
-        type: PhotoActionType.SET_PREVIEW,
-        payload: preview
-    })
-
-})
-
-/**
  * Установка параметров
  * @param photoFind
  */
@@ -180,6 +157,21 @@ export const photoSetParams = (
     dispatch({
         type: PhotoActionType.SET_PARAMS,
         payload: photoFind
+    })
+
+})
+
+/**
+ * Установка фотографии для предпросмотра
+ * @param preview
+ */
+export const photoSetPreview = (
+    preview: number
+) => ((dispatch: Dispatch<PhotoAction>) => {
+
+    dispatch({
+        type: PhotoActionType.SET_PREVIEW,
+        payload: preview
     })
 
 })

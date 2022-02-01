@@ -3,20 +3,14 @@ import {Fab, Stack} from "@mui/material";
 import {useAction} from "../../hook/use-action";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {useTypedSelector} from "../../hook/use-typed-selector";
 
 const PreviewToolbar: FC = () => {
 
     const {photoSetPreview, photoDownload} = useAction()
-    const {preview} = useTypedSelector(state => state.photo)
-
-    const onDownload = () => {
-        if (preview) photoDownload(preview.id)
-    }
-
-    const onClose = () => {
-        photoSetPreview(null)
-    }
+    const {photos, preview} = useTypedSelector(state => state.photo)
 
     return (
         <Stack
@@ -36,14 +30,26 @@ const PreviewToolbar: FC = () => {
             }}
         >
             <Fab
-                onClick={onDownload}
+                disabled={preview === 0}
+                onClick={() => photoSetPreview(preview - 1)}
+            >
+                <ArrowBackIcon/>
+            </Fab>
+            <Fab
+                onClick={() => photoDownload(photos[preview].id)}
             >
                 <DownloadIcon/>
             </Fab>
             <Fab
-                onClick={onClose}
+                onClick={() => photoSetPreview(-1)}
             >
-                <ArrowBackIcon/>
+                <CloseIcon/>
+            </Fab>
+            <Fab
+                disabled={preview === photos.length - 1}
+                onClick={() => photoSetPreview(preview + 1)}
+            >
+                <ArrowForwardIcon/>
             </Fab>
         </Stack>
     )

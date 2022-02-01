@@ -6,14 +6,18 @@ import PreviewToolbar from "./PreviewToolbar";
 
 const Preview: FC = () => {
 
+    const {photos, preview, dateColumn} = useTypedSelector(state => state.photo)
     const [isClear, setIsClear] = useState<boolean>(false)
-    const {preview, dateColumn} = useTypedSelector(state => state.photo)
 
-    const isOpen = !!preview
+    const photo = photos[preview]
+
+    if (!photo) {
+        return null;
+    }
 
     return (
         <Dialog
-            open={isOpen}
+            open={!!photo}
             fullScreen
             sx={{
                 '& .MuiDialog-paper': {
@@ -32,23 +36,21 @@ const Preview: FC = () => {
                     pt={2}
                     pl={2}
                 >
-                    {isOpen && formatDate(preview[dateColumn], 'H:i:s d.m.Y')}
+                    {formatDate(photo[dateColumn], 'Y.m.d H:i:s')}
                 </Typography>
             )}
-            {isOpen && (
-                <img
-                    src={process.env.REACT_APP_SERVER_URL + '/photo/preview/' + preview?.id}
-                    alt=""
-                    loading="lazy"
-                    onClick={() => setIsClear(!isClear)}
-                    style={{
-                        cursor: 'pointer',
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'contain'
-                    }}
-                />
-            )}
+            <img
+                src={process.env.REACT_APP_SERVER_URL + '/photo/preview/' + photo.id}
+                alt=""
+                loading="lazy"
+                onClick={() => setIsClear(!isClear)}
+                style={{
+                    cursor: 'pointer',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain'
+                }}
+            />
             {!isClear && <PreviewToolbar/>}
         </Dialog>
     )

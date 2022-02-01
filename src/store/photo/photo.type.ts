@@ -86,7 +86,7 @@ export interface PhotoState extends PhotoFind, TotalDate {
     isFindTotalDate: boolean
     errors: string[]
 
-    preview: Photo | null
+    preview: number
 
 }
 
@@ -218,18 +218,18 @@ interface PhotoActionFindTotalDateError {
     payload: string[]
 }
 
-// Установка фотографии для предпросмотра
-
-interface PhotoActionSetPreview {
-    type: PhotoActionType.SET_PREVIEW,
-    payload: Photo | null
-}
-
 // Установка параметров
 
 interface PhotoActionSetParams {
     type: PhotoActionType.SET_PARAMS
     payload: PhotoFind
+}
+
+// Установка фотографии для предпросмотра
+
+interface PhotoActionSetPreview {
+    type: PhotoActionType.SET_PREVIEW,
+    payload: number
 }
 
 // Действия
@@ -260,8 +260,8 @@ export type PhotoAction = (
     | PhotoActionFindTotalDateSuccess
     | PhotoActionFindTotalDateError
 
-    | PhotoActionSetPreview
-
     | PhotoActionSetParams
+
+    | PhotoActionSetPreview
 
 )

@@ -17,7 +17,7 @@ const initialState: PhotoState = {
     isFindTotalDate: false,
     errors: [],
 
-    preview: null,
+    preview: -1,
 
     years: [],
     months: [],
@@ -178,14 +178,6 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 errors: action.payload
             }
 
-        // Предпросмотр
-
-        case PhotoActionType.SET_PREVIEW:
-            return {
-                ...state,
-                preview: action.payload
-            }
-
         // Установка параметров
 
         case PhotoActionType.SET_PARAMS:
@@ -193,6 +185,14 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 ...state,
                 photos: [],
                 ...action.payload
+            }
+
+        // Предпросмотр
+
+        case PhotoActionType.SET_PREVIEW:
+            return {
+                ...state,
+                preview: action.payload
             }
 
         // Состояние по умолчанию
