@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {Fab, Stack} from "@mui/material";
+import React, {FC, useEffect} from 'react';
+import {CircularProgress, Fab, Stack} from "@mui/material";
 import {useAction} from "../../hook/use-action";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -9,8 +9,34 @@ import {useTypedSelector} from "../../hook/use-typed-selector";
 
 const PreviewToolbar: FC = () => {
 
-    const {photoSetPreview, photoDownload} = useAction()
-    const {photos, preview} = useTypedSelector(state => state.photo)
+    const {photoSetPreview, photoDownload, photoFind} = useAction()
+    const {
+        photos, total, isFind, preview, years, months, days, dateColumn, orderDirection, limit
+    } = useTypedSelector(state => state.photo)
+
+    useEffect(() => {
+
+        (async () => {
+
+            if (isFind) {
+                return
+            }
+
+            if (!(photos.length < total)) {
+                return
+            }
+
+            if (preview < photos.length - 1) {
+                return
+            }
+
+            await photoFind({
+                years, months, days, dateColumn, orderDirection, limit, offset: photos.length
+            })
+
+        })()
+
+    }, [preview])
 
     return (
         <Stack
@@ -49,7 +75,10 @@ const PreviewToolbar: FC = () => {
                 disabled={preview === photos.length - 1}
                 onClick={() => photoSetPreview(preview + 1)}
             >
-                <ArrowForwardIcon/>
+                {isFind
+                    ? <CircularProgress/>
+                    : <ArrowForwardIcon/>
+                }
             </Fab>
         </Stack>
     )
