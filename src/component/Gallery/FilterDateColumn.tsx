@@ -48,6 +48,12 @@ const FilterDateColumn: FC<FilterDateColumnProps> = ({dateColumn, setDateColumn}
                         value={DateColumn.updatedAt}
                         control={<Radio/>}
                     />
+                    <FormControlLabel
+                        label="Удалена"
+                        name="date-column"
+                        value={DateColumn.deletedAt}
+                        control={<Radio/>}
+                    />
                 </Box>
                 <FormHelperText>
                     Файл

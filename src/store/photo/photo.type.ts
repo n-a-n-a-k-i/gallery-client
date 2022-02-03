@@ -14,7 +14,8 @@ export interface Photo extends PhotoUpdate {
     birthtime: string
 
     createdAt: string
-    updatedAt: string
+    updatedAt: string,
+    deletedAt: string
 
 }
 
@@ -43,7 +44,8 @@ export enum DateColumn {
     birthtime = 'birthtime',
 
     createdAt = 'createdAt',
-    updatedAt = 'updatedAt'
+    updatedAt = 'updatedAt',
+    deletedAt = 'deletedAt'
 
 }
 
