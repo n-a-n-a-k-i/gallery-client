@@ -27,12 +27,8 @@ const Settings: FC<SettingsProps> = ({isOpen, onClose}) => {
         <Dialog
             open={isOpen}
             onClose={onClose}
+            fullWidth
             maxWidth="xs"
-            sx={{
-                '& .MuiDialog-paper': {
-                    width: '100%'
-                }
-            }}
         >
             <DialogTitle>
                 Настройки

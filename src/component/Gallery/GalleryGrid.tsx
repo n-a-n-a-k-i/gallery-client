@@ -14,7 +14,7 @@ const GalleryGrid: FC = () => {
     } = useTypedSelector(state => state.photo)
 
     const {photoSetParams, photoFind, photoFindTotal} = useAction()
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isFinding, setIsFinding] = useState<boolean>(false)
 
     /**
      * Инициализация:
@@ -46,7 +46,7 @@ const GalleryGrid: FC = () => {
                 return
             }
 
-            setIsLoading(true)
+            setIsFinding(true)
 
         }
 
@@ -67,7 +67,7 @@ const GalleryGrid: FC = () => {
             return
         }
 
-        setIsLoading(true)
+        setIsFinding(true)
 
     }, [isFindTotal])
 
@@ -83,7 +83,7 @@ const GalleryGrid: FC = () => {
 
         (async () => {
 
-            if (!isLoading) {
+            if (!isFinding) {
                 return
             }
 
@@ -93,11 +93,11 @@ const GalleryGrid: FC = () => {
                 })
             }
 
-            setIsLoading(false)
+            setIsFinding(false)
 
         })()
 
-    }, [isLoading])
+    }, [isFinding])
 
     return (
         <ImageList

@@ -66,3 +66,30 @@ export const formatDate = (date: Date | string, format: string): string => {
     return format
 
 }
+
+/**
+ * Формат единицы исчисления
+ * @param number
+ * @param v1
+ * @param v2
+ * @param v3
+ */
+export const formatUnit = (number: number, v1: string, v2: string, v3: string): string => {
+
+    if (number > 10 && number < 15) {
+        return v3
+    }
+
+    const mod: number = number % 10
+
+    if (mod === 1) {
+        return v1
+    }
+
+    if (mod > 1 && mod > 5) {
+        return v2
+    }
+
+    return v3
+
+}

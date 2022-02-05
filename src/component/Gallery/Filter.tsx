@@ -38,12 +38,8 @@ const Filter: FC<SearchProps> = ({isOpen, onClose}) => {
         <Dialog
             open={isOpen}
             onClose={onClose}
+            fullWidth
             maxWidth="md"
-            sx={{
-                '& .MuiDialog-paper': {
-                    width: '100%'
-                }
-            }}
         >
             <DialogTitle>
                 Фильтрация
@@ -113,6 +109,7 @@ const Filter: FC<SearchProps> = ({isOpen, onClose}) => {
                 </Button>
                 <Button
                     autoFocus
+                    color="success"
                     onClick={async () => {
 
                         const years = selectedYears

@@ -1,18 +1,21 @@
 import React, {FC, useEffect} from 'react';
 import {CircularProgress, Fab, Stack} from "@mui/material";
 import {useAction} from "../../hook/use-action";
+import {useTypedSelector} from "../../hook/use-typed-selector";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {useTypedSelector} from "../../hook/use-typed-selector";
+import {Permission} from "../../store/account/account.type";
+import DeleteOpen from "./DeleteOpen";
 
-const PreviewToolbar: FC = () => {
+const PreviewBottom: FC = () => {
 
-    const {photoSetPreview, photoDownload, photoFind} = useAction()
+    const {user} = useTypedSelector(state => state.account)
     const {
         photos, total, isFind, preview, years, months, days, dateColumn, orderDirection, limit
     } = useTypedSelector(state => state.photo)
+    const {photoSetPreview, photoDownload, photoFind} = useAction()
 
     useEffect(() => {
 
@@ -61,12 +64,20 @@ const PreviewToolbar: FC = () => {
             >
                 <ArrowBackIcon/>
             </Fab>
+            {user?.permissions.includes(Permission.PHOTO_REMOVE) && <DeleteOpen/>}
             <Fab
+                sx={{
+                    bgcolor: 'success.main',
+                    '&:hover': {
+                        bgcolor: 'success.dark'
+                    }
+                }}
                 onClick={() => photoDownload(photos[preview].id)}
             >
                 <DownloadIcon/>
             </Fab>
             <Fab
+                color={"primary"}
                 onClick={() => photoSetPreview(-1)}
             >
                 <CloseIcon/>
@@ -85,4 +96,4 @@ const PreviewToolbar: FC = () => {
 
 }
 
-export default PreviewToolbar
+export default PreviewBottom

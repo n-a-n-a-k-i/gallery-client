@@ -89,7 +89,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 errors: action.payload
             }
 
-        // Удаление фотографий
+        // Удаление фотографии
 
         case PhotoActionType.REMOVE:
             return {
@@ -102,9 +102,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 ...state,
                 photos: [
                     ...state.photos.filter(photo => (
-                        !action.payload.find(deleted => (
-                            deleted.id === photo.id
-                        ))
+                        photo.id !== action.payload
                     ))
                 ],
                 isRemove: false

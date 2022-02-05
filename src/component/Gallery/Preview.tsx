@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import {Dialog, Typography} from "@mui/material";
 import {useTypedSelector} from "../../hook/use-typed-selector";
 import {formatDate} from "../../utility/format";
-import PreviewToolbar from "./PreviewToolbar";
+import PreviewBottom from "./PreviewBottom";
 
 const Preview: FC = () => {
 
@@ -19,12 +19,6 @@ const Preview: FC = () => {
         <Dialog
             open={!!photo}
             fullScreen
-            sx={{
-                '& .MuiDialog-paper': {
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }
-            }}
         >
             {!isClear && (
                 <Typography
@@ -51,7 +45,7 @@ const Preview: FC = () => {
                     objectFit: 'contain'
                 }}
             />
-            {!isClear && <PreviewToolbar/>}
+            {!isClear && <PreviewBottom/>}
         </Dialog>
     )
 

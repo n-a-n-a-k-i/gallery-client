@@ -30,6 +30,14 @@ export default class PhotoService {
     }
 
     /**
+     * Удаление фотографии
+     * @param id
+     */
+    static remove(id: string) {
+        return galleryApi.delete<void>(`/photo/${id}`)
+    }
+
+    /**
      * Скачивание фотографии
      * @param id
      */

@@ -157,7 +157,7 @@ interface PhotoActionUpdateError {
     payload: string[]
 }
 
-// Удаление фотографий
+// Удаление фотографии
 
 interface PhotoActionRemove {
     type: PhotoActionType.REMOVE
@@ -165,7 +165,7 @@ interface PhotoActionRemove {
 
 interface PhotoActionRemoveSuccess {
     type: PhotoActionType.REMOVE_SUCCESS
-    payload: Photo[]
+    payload: string
 }
 
 interface PhotoActionRemoveError {

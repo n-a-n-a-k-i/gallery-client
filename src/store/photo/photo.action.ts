@@ -36,6 +36,38 @@ export const photoFind = (
 })
 
 /**
+ * Удаление фотографии
+ * @param id
+ */
+export const photoRemove = (
+    id: string
+) => (async (dispatch: Dispatch<PhotoAction>) => {
+
+    try {
+
+        dispatch({
+            type: PhotoActionType.REMOVE
+        })
+
+        await PhotoService.remove(id)
+
+        dispatch({
+            type: PhotoActionType.REMOVE_SUCCESS,
+            payload: id
+        })
+
+    } catch (error) {
+
+        dispatch({
+            type: PhotoActionType.REMOVE_ERROR,
+            payload: getErrors(error)
+        })
+
+    }
+
+})
+
+/**
  * Скачивание фотографии
  * @param id
  */
