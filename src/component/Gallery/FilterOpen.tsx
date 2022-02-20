@@ -7,16 +7,17 @@ import Filter from "./Filter";
 const FilterOpen: FC = () => {
 
     const {isFindTotalDate} = useTypedSelector(state => state.photo)
+    const {users, isFind} = useTypedSelector(state => state.user)
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     return (
         <>
             <Fab
-                disabled={isFindTotalDate}
+                disabled={isFindTotalDate || !users.length || isFind}
                 onClick={() => setIsOpen(true)}
             >
-                {isFindTotalDate
+                {isFindTotalDate || !users.length || isFind
                     ? <CircularProgress/>
                     : <FilterIcon/>
                 }

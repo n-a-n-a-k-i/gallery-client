@@ -1,22 +1,22 @@
 import {AxiosResponse} from 'axios'
 import {accountApi} from "../../api/account.api";
-import {AccountAccessToken, AccountSignIn} from "./account.type";
+import {AccessTokenDto, SignInDto} from "./account.type";
 
 export default class AccountService {
 
     /**
      * Вход
-     * @param accountSignIn
+     * @param signInDto
      */
-    static async signIn(accountSignIn: AccountSignIn) {
-        return accountApi.post<AccountSignIn, AxiosResponse<AccountAccessToken>>('/account/sign-in', accountSignIn)
+    static async signIn(signInDto: SignInDto) {
+        return accountApi.post<SignInDto, AxiosResponse<AccessTokenDto>>('/account/sign-in', signInDto)
     }
 
     /**
      * Обновление токенов
      */
     static async refresh() {
-        return accountApi.get<AccountAccessToken>('/account/refresh')
+        return accountApi.get<AccessTokenDto>('/account/refresh')
     }
 
     /**

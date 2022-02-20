@@ -1,35 +1,35 @@
 import {Dispatch} from "redux";
-import {AccountAction, AccountActionType, AccountSignIn} from "./account.type";
+import {AccountAction, AccountActionType, SignInDto} from "./account.type";
 import AccountService from "./account.service";
 import jwtDecode from "jwt-decode";
 import {getErrors} from "../../utility/error-response";
 
 /**
  * Вход
- * @param accountSignIn
+ * @param signInDto
  */
 export const accountSignIn = (
-    accountSignIn: AccountSignIn
+    signInDto: SignInDto
 ) => (async (dispatch: Dispatch<AccountAction>) => {
 
     try {
 
         dispatch({
-            type: AccountActionType.SIGN_IN
+            type: AccountActionType.ACCOUNT_SIGN_IN
         })
 
-        const response = await AccountService.signIn(accountSignIn)
+        const response = await AccountService.signIn(signInDto)
 
         localStorage.setItem('accessToken', response.data.accessToken)
         dispatch({
-            type: AccountActionType.SIGN_IN_SUCCESS,
+            type: AccountActionType.ACCOUNT_SIGN_IN_SUCCESS,
             payload: jwtDecode(response.data.accessToken)
         })
 
     } catch (error) {
 
         dispatch({
-            type: AccountActionType.SIGN_IN_ERROR,
+            type: AccountActionType.ACCOUNT_SIGN_IN_ERROR,
             payload: getErrors(error)
         })
 
@@ -45,21 +45,21 @@ export const accountRefresh = () => (async (dispatch: Dispatch<AccountAction>) =
     try {
 
         dispatch({
-            type: AccountActionType.REFRESH
+            type: AccountActionType.ACCOUNT_REFRESH
         })
 
         const response = await AccountService.refresh()
 
         localStorage.setItem('accessToken', response.data.accessToken)
         dispatch({
-            type: AccountActionType.REFRESH_SUCCESS,
+            type: AccountActionType.ACCOUNT_REFRESH_SUCCESS,
             payload: jwtDecode(response.data.accessToken)
         })
 
     } catch (error) {
 
         dispatch({
-            type: AccountActionType.REFRESH_ERROR,
+            type: AccountActionType.ACCOUNT_REFRESH_ERROR,
             payload: getErrors(error)
         })
 
@@ -75,20 +75,20 @@ export const accountSignOut = () => (async (dispatch: Dispatch<AccountAction>) =
     try {
 
         dispatch({
-            type: AccountActionType.SIGN_OUT
+            type: AccountActionType.ACCOUNT_SIGN_OUT
         })
 
         await AccountService.signOut()
 
         localStorage.removeItem('accessToken')
         dispatch({
-            type: AccountActionType.SIGN_OUT_SUCCESS
+            type: AccountActionType.ACCOUNT_SIGN_OUT_SUCCESS
         })
 
     } catch (error) {
 
         dispatch({
-            type: AccountActionType.SIGN_OUT_ERROR,
+            type: AccountActionType.ACCOUNT_SIGN_OUT_ERROR,
             payload: getErrors(error)
         })
 

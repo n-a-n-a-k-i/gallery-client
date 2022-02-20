@@ -14,20 +14,20 @@ export const photoFind = (
     try {
 
         dispatch({
-            type: PhotoActionType.FIND
+            type: PhotoActionType.PHOTO_FIND
         })
 
         const response = await PhotoService.find(photoFindParams)
 
         dispatch({
-            type: PhotoActionType.FIND_SUCCESS,
+            type: PhotoActionType.PHOTO_FIND_SUCCESS,
             payload: response.data
         })
 
     } catch (error) {
 
         dispatch({
-            type: PhotoActionType.FIND_ERROR,
+            type: PhotoActionType.PHOTO_FIND_ERROR,
             payload: getErrors(error)
         })
 
@@ -46,20 +46,20 @@ export const photoRemove = (
     try {
 
         dispatch({
-            type: PhotoActionType.REMOVE
+            type: PhotoActionType.PHOTO_REMOVE
         })
 
         await PhotoService.remove(id)
 
         dispatch({
-            type: PhotoActionType.REMOVE_SUCCESS,
+            type: PhotoActionType.PHOTO_REMOVE_SUCCESS,
             payload: id
         })
 
     } catch (error) {
 
         dispatch({
-            type: PhotoActionType.REMOVE_ERROR,
+            type: PhotoActionType.PHOTO_REMOVE_ERROR,
             payload: getErrors(error)
         })
 
@@ -78,14 +78,14 @@ export const photoDownload = (
     try {
 
         dispatch({
-            type: PhotoActionType.DOWNLOAD
+            type: PhotoActionType.PHOTO_DOWNLOAD
         })
 
         const response = await PhotoService.download(id)
 
         if (!response.data) {
             return dispatch({
-                type: PhotoActionType.DOWNLOAD_ERROR,
+                type: PhotoActionType.PHOTO_DOWNLOAD_ERROR,
                 payload: [ErrorMessage.FILE_NOTE_FOUND]
             })
         }
@@ -100,13 +100,13 @@ export const photoDownload = (
         link.remove()
 
         dispatch({
-            type: PhotoActionType.DOWNLOAD_SUCCESS
+            type: PhotoActionType.PHOTO_DOWNLOAD_SUCCESS
         })
 
     } catch (error) {
 
         dispatch({
-            type: PhotoActionType.DOWNLOAD_ERROR,
+            type: PhotoActionType.PHOTO_DOWNLOAD_ERROR,
             payload: getErrors(error)
         })
 
@@ -125,20 +125,20 @@ export const photoFindTotal = (
     try {
 
         dispatch({
-            type: PhotoActionType.FIND_TOTAL
+            type: PhotoActionType.PHOTO_FIND_TOTAL
         })
 
         const response = await PhotoService.findTotal(photoFindTotalParams)
 
         dispatch({
-            type: PhotoActionType.FIND_TOTAL_SUCCESS,
+            type: PhotoActionType.PHOTO_FIND_TOTAL_SUCCESS,
             payload: response.data
         })
 
     } catch (error) {
 
         dispatch({
-            type: PhotoActionType.FIND_TOTAL_ERROR,
+            type: PhotoActionType.PHOTO_FIND_TOTAL_ERROR,
             payload: getErrors(error)
         })
 
@@ -157,20 +157,20 @@ export const photoFindTotalDate = (
     try {
 
         dispatch({
-            type: PhotoActionType.FIND_TOTAL_DATE
+            type: PhotoActionType.PHOTO_FIND_TOTAL_DATE
         })
 
         const response = await PhotoService.findTotalDate(dateColumn)
 
         dispatch({
-            type: PhotoActionType.FIND_TOTAL_DATE_SUCCESS,
+            type: PhotoActionType.PHOTO_FIND_TOTAL_DATE_SUCCESS,
             payload: response.data
         })
 
     } catch (error) {
 
         dispatch({
-            type: PhotoActionType.FIND_TOTAL_DATE_ERROR,
+            type: PhotoActionType.PHOTO_FIND_TOTAL_DATE_ERROR,
             payload: getErrors(error)
         })
 
@@ -187,7 +187,7 @@ export const photoSetParams = (
 ) => ((dispatch: Dispatch<PhotoAction>) => {
 
     dispatch({
-        type: PhotoActionType.SET_PARAMS,
+        type: PhotoActionType.PHOTO_SET_PARAMS,
         payload: photoFind
     })
 
@@ -202,7 +202,7 @@ export const photoSetPreview = (
 ) => ((dispatch: Dispatch<PhotoAction>) => {
 
     dispatch({
-        type: PhotoActionType.SET_PREVIEW,
+        type: PhotoActionType.PHOTO_SET_PREVIEW,
         payload: preview
     })
 

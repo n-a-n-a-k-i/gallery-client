@@ -6,8 +6,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {Permission} from "../../store/account/account.type";
 import DeleteOpen from "./DeleteOpen";
+import {Permission} from "../../store/permission/permission.type";
 
 const PreviewBottom: FC = () => {
 

@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
-import {Photo} from "../../store/photo/photo.type";
+import {PhotoDto} from "../../store/photo/photo.type";
 import {ImageListItem} from "@mui/material";
 import {useAction} from "../../hook/use-action";
 import {useTypedSelector} from "../../hook/use-typed-selector";
 
 interface PhotoItemProps {
-    photo: Photo
+    photo: PhotoDto
 }
 
 const GalleryGridPhoto: FC<PhotoItemProps> = ({photo}) => {

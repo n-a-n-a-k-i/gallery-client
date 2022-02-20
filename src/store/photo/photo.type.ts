@@ -1,12 +1,10 @@
 // Фотография
 
-export interface PhotoUpdate {
+export interface PhotoDto {
+
     id: string
     user: string
     date: string
-}
-
-export interface Photo extends PhotoUpdate {
 
     atime: string
     mtime: string
@@ -14,22 +12,22 @@ export interface Photo extends PhotoUpdate {
     birthtime: string
 
     createdAt: string
-    updatedAt: string,
+    updatedAt: string
     deletedAt: string
 
 }
 
 // Количество фотографий по частям даты
 
-export interface TotalDatePart {
+export interface TotalDatePartDto {
     value: number
     total: number
 }
 
-export interface TotalDate {
-    totalYears: TotalDatePart[]
-    totalMonths: TotalDatePart[]
-    totalDays: TotalDatePart[]
+export interface TotalDateDto {
+    totalYears: TotalDatePartDto[]
+    totalMonths: TotalDatePartDto[]
+    totalDays: TotalDatePartDto[]
 }
 
 // Параметры для запроса количества фотографий
@@ -74,9 +72,9 @@ export interface PhotoFindParams extends PhotoFind {
 
 // Состояние
 
-export interface PhotoState extends PhotoFind, TotalDate {
+export interface PhotoState extends PhotoFind, TotalDateDto {
 
-    photos: Photo[]
+    photos: PhotoDto[]
     total: number
 
     isFind: boolean
@@ -96,141 +94,141 @@ export interface PhotoState extends PhotoFind, TotalDate {
 
 export enum PhotoActionType {
 
-    FIND = 'FIND',
-    FIND_SUCCESS = 'FIND_SUCCESS',
-    FIND_ERROR = 'FIND_ERROR',
+    PHOTO_FIND = 'PHOTO_FIND',
+    PHOTO_FIND_SUCCESS = 'PHOTO_FIND_SUCCESS',
+    PHOTO_FIND_ERROR = 'PHOTO_FIND_ERROR',
 
-    UPDATE = 'UPDATE',
-    UPDATE_SUCCESS = 'UPDATE_SUCCESS',
-    UPDATE_ERROR = 'UPDATE_ERROR',
+    PHOTO_UPDATE = 'PHOTO_UPDATE',
+    PHOTO_UPDATE_SUCCESS = 'PHOTO_UPDATE_SUCCESS',
+    PHOTO_UPDATE_ERROR = 'PHOTO_UPDATE_ERROR',
 
-    REMOVE = 'REMOVE',
-    REMOVE_SUCCESS = 'REMOVE_SUCCESS',
-    REMOVE_ERROR = 'REMOVE_ERROR',
+    PHOTO_REMOVE = 'PHOTO_REMOVE',
+    PHOTO_REMOVE_SUCCESS = 'PHOTO_REMOVE_SUCCESS',
+    PHOTO_REMOVE_ERROR = 'PHOTO_REMOVE_ERROR',
 
-    DOWNLOAD = 'DOWNLOAD',
-    DOWNLOAD_SUCCESS = 'DOWNLOAD_SUCCESS',
-    DOWNLOAD_ERROR = 'DOWNLOAD_ERROR',
+    PHOTO_DOWNLOAD = 'PHOTO_DOWNLOAD',
+    PHOTO_DOWNLOAD_SUCCESS = 'PHOTO_DOWNLOAD_SUCCESS',
+    PHOTO_DOWNLOAD_ERROR = 'PHOTO_DOWNLOAD_ERROR',
 
-    FIND_TOTAL = 'FIND_TOTAL',
-    FIND_TOTAL_SUCCESS = 'FIND_TOTAL_SUCCESS',
-    FIND_TOTAL_ERROR = 'FIND_TOTAL_ERROR',
+    PHOTO_FIND_TOTAL = 'PHOTO_FIND_TOTAL',
+    PHOTO_FIND_TOTAL_SUCCESS = 'PHOTO_FIND_TOTAL_SUCCESS',
+    PHOTO_FIND_TOTAL_ERROR = 'PHOTO_FIND_TOTAL_ERROR',
 
-    FIND_TOTAL_DATE = 'FIND_TOTAL_DATE',
-    FIND_TOTAL_DATE_SUCCESS = 'FIND_TOTAL_DATE_SUCCESS',
-    FIND_TOTAL_DATE_ERROR = 'FIND_TOTAL_DATE_ERROR',
+    PHOTO_FIND_TOTAL_DATE = 'PHOTO_FIND_TOTAL_DATE',
+    PHOTO_FIND_TOTAL_DATE_SUCCESS = 'PHOTO_FIND_TOTAL_DATE_SUCCESS',
+    PHOTO_FIND_TOTAL_DATE_ERROR = 'PHOTO_FIND_TOTAL_DATE_ERROR',
 
-    SET_PREVIEW = 'SET_PREVIEW',
-    SET_PARAMS = 'SET_PARAMS'
+    PHOTO_SET_PREVIEW = 'PHOTO_SET_PREVIEW',
+    PHOTO_SET_PARAMS = 'PHOTO_SET_PARAMS'
 
 }
 
 // Поиск фотографий
 
 interface PhotoActionFind {
-    type: PhotoActionType.FIND
+    type: PhotoActionType.PHOTO_FIND
 }
 
 interface PhotoActionFindSuccess {
-    type: PhotoActionType.FIND_SUCCESS
-    payload: Photo[]
+    type: PhotoActionType.PHOTO_FIND_SUCCESS
+    payload: PhotoDto[]
 }
 
 interface PhotoActionFindError {
-    type: PhotoActionType.FIND_ERROR
+    type: PhotoActionType.PHOTO_FIND_ERROR
     payload: string[]
 }
 
 // Изменение фотографии
 
 interface PhotoActionUpdate {
-    type: PhotoActionType.UPDATE
+    type: PhotoActionType.PHOTO_UPDATE
 }
 
 interface PhotoActionUpdateSuccess {
-    type: PhotoActionType.UPDATE_SUCCESS
-    payload: Photo
+    type: PhotoActionType.PHOTO_UPDATE_SUCCESS
+    payload: PhotoDto
 }
 
 interface PhotoActionUpdateError {
-    type: PhotoActionType.UPDATE_ERROR
+    type: PhotoActionType.PHOTO_UPDATE_ERROR
     payload: string[]
 }
 
 // Удаление фотографии
 
 interface PhotoActionRemove {
-    type: PhotoActionType.REMOVE
+    type: PhotoActionType.PHOTO_REMOVE
 }
 
 interface PhotoActionRemoveSuccess {
-    type: PhotoActionType.REMOVE_SUCCESS
+    type: PhotoActionType.PHOTO_REMOVE_SUCCESS
     payload: string
 }
 
 interface PhotoActionRemoveError {
-    type: PhotoActionType.REMOVE_ERROR
+    type: PhotoActionType.PHOTO_REMOVE_ERROR
     payload: string[]
 }
 
 // Скачивание фотографии
 
 interface PhotoActionDownload {
-    type: PhotoActionType.DOWNLOAD
+    type: PhotoActionType.PHOTO_DOWNLOAD
 }
 
 interface PhotoActionDownloadSuccess {
-    type: PhotoActionType.DOWNLOAD_SUCCESS
+    type: PhotoActionType.PHOTO_DOWNLOAD_SUCCESS
 }
 
 interface PhotoActionDownloadError {
-    type: PhotoActionType.DOWNLOAD_ERROR
+    type: PhotoActionType.PHOTO_DOWNLOAD_ERROR
     payload: string[]
 }
 
 // Поиск количества фотографий
 
 interface PhotoActionFindTotal {
-    type: PhotoActionType.FIND_TOTAL
+    type: PhotoActionType.PHOTO_FIND_TOTAL
 }
 
 interface PhotoActionFindTotalSuccess {
-    type: PhotoActionType.FIND_TOTAL_SUCCESS,
+    type: PhotoActionType.PHOTO_FIND_TOTAL_SUCCESS,
     payload: number
 }
 
 interface PhotoActionFindTotalError {
-    type: PhotoActionType.FIND_TOTAL_ERROR,
+    type: PhotoActionType.PHOTO_FIND_TOTAL_ERROR,
     payload: string[]
 }
 
 // Поиск количества фотографий по частям даты
 
 interface PhotoActionFindTotalDate {
-    type: PhotoActionType.FIND_TOTAL_DATE
+    type: PhotoActionType.PHOTO_FIND_TOTAL_DATE
 }
 
 interface PhotoActionFindTotalDateSuccess {
-    type: PhotoActionType.FIND_TOTAL_DATE_SUCCESS,
-    payload: TotalDate
+    type: PhotoActionType.PHOTO_FIND_TOTAL_DATE_SUCCESS,
+    payload: TotalDateDto
 }
 
 interface PhotoActionFindTotalDateError {
-    type: PhotoActionType.FIND_TOTAL_DATE_ERROR,
+    type: PhotoActionType.PHOTO_FIND_TOTAL_DATE_ERROR,
     payload: string[]
 }
 
 // Установка параметров
 
 interface PhotoActionSetParams {
-    type: PhotoActionType.SET_PARAMS
+    type: PhotoActionType.PHOTO_SET_PARAMS
     payload: PhotoFind
 }
 
 // Установка фотографии для предпросмотра
 
 interface PhotoActionSetPreview {
-    type: PhotoActionType.SET_PREVIEW,
+    type: PhotoActionType.PHOTO_SET_PREVIEW,
     payload: number
 }
 

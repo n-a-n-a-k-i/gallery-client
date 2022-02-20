@@ -33,13 +33,13 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
 
         // Поиск фотографий
 
-        case PhotoActionType.FIND:
+        case PhotoActionType.PHOTO_FIND:
             return {
                 ...state,
                 isFind: true,
                 errors: []
             }
-        case PhotoActionType.FIND_SUCCESS:
+        case PhotoActionType.PHOTO_FIND_SUCCESS:
             return {
                 ...state,
                 photos: [
@@ -48,7 +48,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 ],
                 isFind: false
             }
-        case PhotoActionType.FIND_ERROR:
+        case PhotoActionType.PHOTO_FIND_ERROR:
             return {
                 ...state,
                 isFind: false,
@@ -57,13 +57,13 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
 
         // Изменение фотографии
 
-        case PhotoActionType.UPDATE:
+        case PhotoActionType.PHOTO_UPDATE:
             return {
                 ...state,
                 isUpdate: true,
                 errors: []
             }
-        case PhotoActionType.UPDATE_SUCCESS:
+        case PhotoActionType.PHOTO_UPDATE_SUCCESS:
             return {
                 ...state,
                 photos: [
@@ -82,7 +82,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 ],
                 isUpdate: false
             }
-        case PhotoActionType.UPDATE_ERROR:
+        case PhotoActionType.PHOTO_UPDATE_ERROR:
             return {
                 ...state,
                 isUpdate: false,
@@ -91,13 +91,13 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
 
         // Удаление фотографии
 
-        case PhotoActionType.REMOVE:
+        case PhotoActionType.PHOTO_REMOVE:
             return {
                 ...state,
                 isRemove: true,
                 errors: []
             }
-        case PhotoActionType.REMOVE_SUCCESS:
+        case PhotoActionType.PHOTO_REMOVE_SUCCESS:
             return {
                 ...state,
                 photos: [
@@ -107,7 +107,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
                 ],
                 isRemove: false
             }
-        case PhotoActionType.REMOVE_ERROR:
+        case PhotoActionType.PHOTO_REMOVE_ERROR:
             return {
                 ...state,
                 isRemove: false,
@@ -116,18 +116,18 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
 
         // Скачивание фотографии
 
-        case PhotoActionType.DOWNLOAD:
+        case PhotoActionType.PHOTO_DOWNLOAD:
             return {
                 ...state,
                 isDownload: true,
                 errors: []
             }
-        case PhotoActionType.DOWNLOAD_SUCCESS:
+        case PhotoActionType.PHOTO_DOWNLOAD_SUCCESS:
             return {
                 ...state,
                 isDownload: false
             }
-        case PhotoActionType.DOWNLOAD_ERROR:
+        case PhotoActionType.PHOTO_DOWNLOAD_ERROR:
             return {
                 ...state,
                 isDownload: false,
@@ -136,19 +136,19 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
 
         // Поиск количества фотографий
 
-        case PhotoActionType.FIND_TOTAL:
+        case PhotoActionType.PHOTO_FIND_TOTAL:
             return {
                 ...state,
                 isFindTotal: true,
                 errors: []
             }
-        case PhotoActionType.FIND_TOTAL_SUCCESS:
+        case PhotoActionType.PHOTO_FIND_TOTAL_SUCCESS:
             return {
                 ...state,
                 total: action.payload,
                 isFindTotal: false
             }
-        case PhotoActionType.FIND_TOTAL_ERROR:
+        case PhotoActionType.PHOTO_FIND_TOTAL_ERROR:
             return {
                 ...state,
                 isFindTotal: false,
@@ -157,19 +157,19 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
 
         // Поиск количества фотографий по частям даты
 
-        case PhotoActionType.FIND_TOTAL_DATE:
+        case PhotoActionType.PHOTO_FIND_TOTAL_DATE:
             return {
                 ...state,
                 isFindTotalDate: true,
                 errors: []
             }
-        case PhotoActionType.FIND_TOTAL_DATE_SUCCESS:
+        case PhotoActionType.PHOTO_FIND_TOTAL_DATE_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
                 isFindTotalDate: false
             }
-        case PhotoActionType.FIND_TOTAL_DATE_ERROR:
+        case PhotoActionType.PHOTO_FIND_TOTAL_DATE_ERROR:
             return {
                 ...state,
                 isFindTotalDate: false,
@@ -178,7 +178,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
 
         // Установка параметров
 
-        case PhotoActionType.SET_PARAMS:
+        case PhotoActionType.PHOTO_SET_PARAMS:
             return {
                 ...state,
                 photos: [],
@@ -187,7 +187,7 @@ export const photoReducer = (state: PhotoState = initialState, action: PhotoActi
 
         // Предпросмотр
 
-        case PhotoActionType.SET_PREVIEW:
+        case PhotoActionType.PHOTO_SET_PREVIEW:
             return {
                 ...state,
                 preview: action.payload

@@ -1,4 +1,4 @@
-import {DateColumn, Photo} from "../store/photo/photo.type";
+import {DateColumn, PhotoDto} from "../store/photo/photo.type";
 import {formatDate} from "./format";
 
 export const getCols = (): number => {
@@ -28,9 +28,9 @@ export const getLimit = (): number => {
 
 }
 
-export const pushDivider = (photos: Photo[], dateColumn: DateColumn): (Photo | string)[] => {
+export const pushDivider = (photos: PhotoDto[], dateColumn: DateColumn): (PhotoDto | string)[] => {
 
-    const items: (Photo | string)[] = []
+    const items: (PhotoDto | string)[] = []
 
     photos.forEach((photo, i) => {
 

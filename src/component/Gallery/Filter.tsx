@@ -17,7 +17,7 @@ interface SearchProps {
 const Filter: FC<SearchProps> = ({isOpen, onClose}) => {
 
     const {years, months, days, orderDirection, dateColumn, limit} = useTypedSelector(state => state.photo)
-    const {photoFindTotal, photoFindTotalDate, photoSetParams} = useAction()
+    const {photoFindTotal, photoFindTotalDate, photoSetParams, userFind} = useAction()
     const [selectedYears, setSelectedYears] = useState<number[]>(years)
     const [selectedMonths, setSelectedMonths] = useState<number[]>(months)
     const [selectedDays, setSelectedDays] = useState<number[]>(days)
@@ -28,6 +28,7 @@ const Filter: FC<SearchProps> = ({isOpen, onClose}) => {
 
         (async () => {
 
+            await userFind()
             await photoFindTotalDate(dateColumn)
 
         })()

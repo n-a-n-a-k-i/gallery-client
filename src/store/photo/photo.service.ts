@@ -1,4 +1,4 @@
-import {DateColumn, Photo, PhotoFindParams, PhotoFindTotalParams, TotalDate} from "./photo.type";
+import {DateColumn, PhotoDto, PhotoFindParams, PhotoFindTotalParams, TotalDateDto} from "./photo.type";
 import galleryApi from "../../api/gallery.api";
 
 export default class PhotoService {
@@ -16,7 +16,7 @@ export default class PhotoService {
     static find(
         {years, months, days, dateColumn, orderDirection, limit, offset}: PhotoFindParams
     ) {
-        return galleryApi.get<Photo[]>('/photo', {
+        return galleryApi.get<PhotoDto[]>('/photo', {
             params: {
                 years: years.join(',') || null,
                 months: months.join(',') || null,
@@ -72,7 +72,7 @@ export default class PhotoService {
      * @param dateColumn
      */
     static findTotalDate(dateColumn: DateColumn) {
-        return galleryApi.get<TotalDate>(`/photo/total-date/${dateColumn}`)
+        return galleryApi.get<TotalDateDto>(`/photo/total-date/${dateColumn}`)
     }
 
 }
